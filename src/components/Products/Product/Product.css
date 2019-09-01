@@ -1,0 +1,9 @@
+.Product {
+    width: 150px;
+    background-color: crimson;
+    border: 2px solid white;
+    border-radius: 5px;
+    display: inline-block;
+    margin: 15px;
+    font-weight: 500;
+}

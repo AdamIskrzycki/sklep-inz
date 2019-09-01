@@ -1,11 +1,12 @@
 import React from 'react';
+import './Product.css';
 
 
 
-const product = (props) => {
+const Product = (props) => {
     
     return (
-        <div>
+        <div className='Product'>
             <p>{props.name}</p>
             <p>{props.discountedPrice ? props.discountedPrice : props.price }</p>
             <button onClick={props.addToCart}>Buy</button>
@@ -13,4 +14,4 @@ const product = (props) => {
     )
 }
 
-export default product;
+export default Product;
