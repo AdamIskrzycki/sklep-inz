@@ -5,8 +5,7 @@ const Cart = (props) => {
     return (
         <div className="Cart">
             <p style={{textDecoration: 'underline'}}>CART</p>
-            <p>{props.itemInfo}</p>
-            <p>Total Price: {props.totalPrice} </p>
+            <p>{props.products ? props.products.length : "no items!"}</p>
         </div>
     );
 }
