@@ -11,8 +11,6 @@ class Products extends Component {
           { name: "Cheese", price: 4.59, discountedPrice: 3}
         ] ,
         cartProducts: [],
-        totalPrice: 0,
-        itemInfo: ''
       }
     
      updateCart = (product) => {
