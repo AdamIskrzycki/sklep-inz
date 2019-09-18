@@ -3,13 +3,16 @@ import "./Cart.css";
 
 const Cart = (props) => {
     
-    const totalPrice = props.products.reduce((acc, product) => acc + product.discountedPrice, 0);
-    const productInfo = props.products.map(product => {
+    const totalPrice = props.products.reduce((acc, product) => product.discountedPrice ? acc + product.discountedPrice : acc + product.price, 0);
+    const productInfo = props.products.map((product, index) => {
+
         return (
         <>
-            <span>{product.name + " "}</span>
-            <span>{product.discountedPrice}</span>
-            <br/>
+            <div className="ProductInfo" key={product.id}>
+                <span>{product.name + " | "}</span>
+                <span>{product.discountedPrice ? product.discountedPrice + "$" : product.price + "$"}</span>
+                <br/>
+            </div>
         </>
          )
     })
@@ -17,8 +20,8 @@ const Cart = (props) => {
     return (
         <div className="Cart">
             <p style={{textDecoration: 'underline'}}>CART</p>
-            <p>{props.products ? props.products.length : "no items!"}</p>
-            <p>{totalPrice}</p>
+            <p>{props.products ? "Total amount of products: " + props.products.length : "no items!"}</p>
+            <p>{"Total price: " + totalPrice + "$"}</p>
             <p>{productInfo}</p>
         </div>
     );

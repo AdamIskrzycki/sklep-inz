@@ -6,9 +6,9 @@ class Products extends Component {
 
     state = {
         products: [
-          { name: "Water", price: 2, discountedPrice: 1.5},
-          { name: "Bread", price: 2.5, discountedPrice: 2},
-          { name: "Cheese", price: 4.59, discountedPrice: 3}
+          { name: "Water", price: 2, discountedPrice: 1.5, id: 1},
+          { name: "Bread", price: 2.5, discountedPrice: 2, id: 2},
+          { name: "Cheese", price: 4.59, id: 3}
         ] ,
         cartProducts: [],
       }
@@ -31,10 +31,15 @@ class Products extends Component {
                 /> : null}
 
                 
-                    {this.state.products.map(product => {
+                    {this.state.products.map((product, index) => {
                         
                         return (
-                            <Product name={product.name} price={product.price} discountedPrice={product.discountedPrice} updateCart={() => this.updateCart(product)}/>
+                            <Product
+                                name={product.name}
+                                price={product.price}
+                                discountedPrice={product.discountedPrice}
+                                updateCart={() => this.updateCart(product)}
+                                key={product.id}/>
                             )   
                         }
                     )}
