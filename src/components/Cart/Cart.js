@@ -30,5 +30,4 @@ const Cart = (props) => {
 export default Cart;
 
 // podzielic produkty wyswietlane w koszyku na oddzielne komponenty
-// dodac logike z price i discountedPrice, wyswietlac odpowiednia cene w koszyku
 // dodac key do zmapowanych tablic
