@@ -6,7 +6,7 @@
     display: inline-block;
     margin: 15px;
     font-weight: 500;
-    margin-top: 50px; 
+    margin-top: 130px; 
 }
 
 .BuyButton {
@@ -22,5 +22,9 @@
 }
 
 .NewPrice {
-    color: #5CC25D;
+    color: #20FB22;
+}
+
+.ProductName {
+    font-size: 20px;
 }
