@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import Product from '../Products/Product/Product';
 import Cart from '../Cart/Cart';
-import CartProduct from '../Cart/CartProduct';
 
 class Products extends Component {
 

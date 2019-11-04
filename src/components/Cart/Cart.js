@@ -5,18 +5,6 @@ import CartProduct from './CartProduct';
 const Cart = (props) => {
     
     const totalPrice = props.products.reduce((acc, product) => product.discountedPrice ? acc + product.discountedPrice : acc + product.price, 0);
-    // const productInfo = props.products.map((product, index) => {
-
-    //     return (
-    //     <>
-    //         <div className="ProductInfo" key={product.id}>
-    //             <span>{product.name + " | "}</span>
-    //             <span>{product.discountedPrice ? product.discountedPrice + "$" : product.price + "$"}</span>
-    //             <br/>
-    //         </div>
-    //     </>
-    //      )
-    // })
 
     return (
         <div className="Cart">
@@ -30,5 +18,4 @@ const Cart = (props) => {
 
 export default Cart;
 
-// podzielic produkty wyswietlane w koszyku na oddzielne komponenty
 // dodac key do zmapowanych tablic (nie mam pojecia dlaczego to nie dziala)
