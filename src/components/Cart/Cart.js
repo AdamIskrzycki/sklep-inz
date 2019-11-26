@@ -10,7 +10,7 @@ const Cart = (props) => {
         <div className="Cart">
             <p style={{textDecoration: 'underline'}}>CART</p>
             <p>{props.products ? "Total amount of products: " + props.products.length : "no items!"}</p>
-            <p>{"Total price: " + totalPrice + "$"}</p>
+            <p>{"Total price: " + totalPrice.toFixed(2) + "$"}</p>
             <CartProduct products={props.products} />
         </div>
     );
