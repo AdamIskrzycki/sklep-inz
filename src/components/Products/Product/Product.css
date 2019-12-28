@@ -11,8 +11,12 @@
 
 .BuyButton {
     margin-bottom: 5px;
-    border-radius: 4px;
+    border-radius: 3px;
     cursor: pointer;
+}
+
+.BuyButton:hover {
+    border: 2px solid red;
 }
 
 .CrossedPrice {

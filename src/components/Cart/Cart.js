@@ -1,19 +1,23 @@
-import React from 'react';
+import React, {Component} from 'react';
 import "./Cart.css";
 import CartProduct from './CartProduct';
+import OrderButton from './OrderButton';
 
-const Cart = (props) => {
-    
-    const totalPrice = props.products.reduce((acc, product) => product.discountedPrice ? acc + product.discountedPrice : acc + product.price, 0);
+class Cart extends Component {
+
+    render() {
+        const totalPrice = this.props.products.reduce((acc, product) => product.discountedPrice ? acc + product.discountedPrice : acc + product.price, 0);
 
     return (
         <div className="Cart">
             <p style={{textDecoration: 'underline'}}>CART</p>
-            <p>{props.products ? "Total amount of products: " + props.products.length : "no items!"}</p>
+            <p>{this.props.products ? "Total amount of products: " + this.props.products.length : "no items!"}</p>
             <p>{"Total price: " + totalPrice.toFixed(2) + "$"}</p>
-            <CartProduct products={props.products} />
+            <CartProduct products={this.props.products} />
+            <OrderButton loadModal={this.props.handleModalAppearing}/>
         </div>
-    );
+        );
+    }
 }
 
 export default Cart;

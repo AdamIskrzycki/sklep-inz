@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import Product from '../Products/Product/Product';
 import Cart from '../Cart/Cart';
+import Modal from '../PurchaseSummary/Modal/Modal';
+
 
 class Products extends Component {
 
@@ -11,6 +13,7 @@ class Products extends Component {
           { name: "Cheese", price: 4.59, id: 3}
         ] ,
         cartProducts: [],
+        showModal: false
       }
     
      updateCart = (product) => {
@@ -18,7 +21,11 @@ class Products extends Component {
         this.setState({
             cartProducts: this.state.cartProducts.concat(product)
           })
+    
+      }
 
+      handleModalAppearing = () => {
+        this.setState({showModal: true});
       }
 
 
@@ -29,6 +36,8 @@ class Products extends Component {
                 {this.state.cartProducts.length > 0 ? <Cart
                     products={this.state.cartProducts}
                 /> : null}
+                
+                {this.state.showModal ? <Modal/> : null}
 
                 
                     {this.state.products.map((product, index) => {
@@ -43,6 +52,8 @@ class Products extends Component {
                             )   
                         }
                     )}
+
+                    
 
             </React.Fragment>
         );

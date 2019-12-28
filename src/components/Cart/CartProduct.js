@@ -2,30 +2,19 @@ import React from 'react';
 
 const CartProduct = (props) => {
     
-    const groupBy = (arr) => {
+    const groupBy = (list, key) => {
 
+        const map = [];
 
-        const productsFilter = arr.find(({name}) => {
-                return name;
-        })
-
-        let includesItem = arr.some(product => product.name === productsFilter);    // arr.includes(productsFilter) ??
-
-        const filledCart = arr.map(item => {
-            if(!includesItem) {
-                arr.push(item);
-                productsFilter['count'] = '1';
+        list.forEach((item) => {
+            const collection = map.find(elem => elem[key] === item[key]);
+            if(!collection) {
+                item.count = 1;
+                map.push(item);
+            } else {
+                collection.count++;
             }
-
-            else productsFilter['count']++
-        })
-            
-
-       
-
-        // productsFilter.map((item) => {
-        //     return item['count']++
-        // })
+        });
 
         // const map = new Map();
         
@@ -40,10 +29,10 @@ const CartProduct = (props) => {
         // });
         // return map;
 
-        return arr;     // jak zwracam filledCart to się nie kompiluje
+        return map;
     }
 
-    const grouped = groupBy(props.products);
+    const grouped = groupBy(props.products, 'name');
     console.log(grouped);
 
     const getItemInfo = grouped.map((product) => {
@@ -59,18 +48,6 @@ const CartProduct = (props) => {
              )
       })
 
-    // const productInfo = props.products.map((product, index) => {
-
-    //     return (
-    //     <>
-    //         <div className="ProductInfo" key={product.index}>
-    //             <span>{product.name + " | "}</span>
-    //             <span>{product.discountedPrice ? product.discountedPrice + "$" : product.price + "$"}</span>
-    //             <br/>
-    //         </div>
-    //     </>
-    //      )
-    // })
 
     return (
         <div>
