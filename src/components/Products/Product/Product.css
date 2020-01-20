@@ -15,10 +15,6 @@
     cursor: pointer;
 }
 
-.BuyButton:hover {
-    border: 2px solid red;
-}
-
 .CrossedPrice {
     text-decoration: line-through;
     color: red;

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Product from '../Products/Product/Product';
 import Cart from '../Cart/Cart';
 import Modal from '../PurchaseSummary/Modal/Modal';
-
+import Backdrop from '../PurchaseSummary/Backdrop/Backdrop';
 
 class Products extends Component {
 
@@ -28,6 +28,10 @@ class Products extends Component {
         this.setState({showModal: true});
       }
 
+      handleModalHiding = () => {
+          this.setState({showModal: false});
+      }
+
 
     render() {
         return (
@@ -35,9 +39,13 @@ class Products extends Component {
                 
                 {this.state.cartProducts.length > 0 ? <Cart
                     products={this.state.cartProducts}
+                    handleModalAppearing={this.handleModalAppearing}
                 /> : null}
                 
-                {this.state.showModal ? <Modal/> : null}
+                {this.state.showModal ? <Modal 
+                    show={this.state.showModal}
+                    modalClosed={this.handleModalHiding}
+                /> : null}
 
                 
                     {this.state.products.map((product, index) => {

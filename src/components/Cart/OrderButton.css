@@ -5,7 +5,3 @@
    cursor: pointer;
    font-weight: 700;
 }
-
-.OrderButton:hover {
-    border: 2px solid red;
-}
