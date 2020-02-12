@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import Product from '../Products/Product/Product';
 import Cart from '../Cart/Cart';
 import Modal from '../PurchaseSummary/Modal/Modal';
-import Backdrop from '../PurchaseSummary/Backdrop/Backdrop';
 
 class Products extends Component {
 
@@ -45,6 +44,7 @@ class Products extends Component {
                 {this.state.showModal ? <Modal 
                     show={this.state.showModal}
                     modalClosed={this.handleModalHiding}
+                    products={this.state.cartProducts}
                 /> : null}
 
                 
