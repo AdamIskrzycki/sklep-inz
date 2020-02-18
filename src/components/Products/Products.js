@@ -12,7 +12,8 @@ class Products extends Component {
           { name: "Cheese", price: 4.59, id: 3}
         ] ,
         cartProducts: [],
-        showModal: false
+        showModal: false,
+        clearCart: false
       }
     
      updateCart = (product) => {
@@ -24,28 +25,41 @@ class Products extends Component {
       }
 
       handleModalAppearing = () => {
-        this.setState({showModal: true});
+          this.setState({showModal: true});
       }
 
       handleModalHiding = () => {
           this.setState({showModal: false});
       }
 
+      continueToCheckout = () => {
+          alert("You continue!");
+      }
+
+      handleCartClearing = () => {
+        this.setState({cartProducts: []});
+      }
+
 
     render() {
+
         return (
             <React.Fragment>
                 
                 {this.state.cartProducts.length > 0 ? <Cart
                     products={this.state.cartProducts}
                     handleModalAppearing={this.handleModalAppearing}
+                    handleCartClearing={this.handleCartClearing}
                 /> : null}
                 
                 {this.state.showModal ? <Modal 
                     show={this.state.showModal}
                     modalClosed={this.handleModalHiding}
+                    continueToCheckout={this.continueToCheckout}
                     products={this.state.cartProducts}
                 /> : null}
+
+                
 
                 
                     {this.state.products.map((product, index) => {

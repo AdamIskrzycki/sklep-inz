@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import "./Cart.css";
 import CartProduct from './CartProduct';
-import OrderButton from './OrderButton';
+import OrderButton from './CartButtons/OrderButton';
+import ClearCartButton from './CartButtons/ClearCartButton';
 
 class Cart extends Component {
 
@@ -11,9 +12,10 @@ class Cart extends Component {
     return (
         <div className="Cart">
             <p style={{textDecoration: 'underline'}}>CART</p>
-            <p>{this.props.products ? "Total amount of products: " + this.props.products.length : "no items!"}</p>
-            <p>{"Total price: " + totalPrice.toFixed(2) + "$"}</p>
+                <p>{this.props.products ? "Total amount of products: " + this.props.products.length : "Your cart is cleared"}</p>
+                <p>{"Total price: " + totalPrice.toFixed(2) + "$"}</p>
             <CartProduct products={this.props.products} />
+            <ClearCartButton clicked={this.props.handleCartClearing}/>
             <OrderButton loadModal={this.props.handleModalAppearing}/>
         </div>
         );
@@ -21,5 +23,3 @@ class Cart extends Component {
 }
 
 export default Cart;
-
-// dodac key do zmapowanych tablic (nie mam pojecia dlaczego to nie dziala)

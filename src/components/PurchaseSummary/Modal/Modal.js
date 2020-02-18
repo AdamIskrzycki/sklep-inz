@@ -24,7 +24,7 @@ class Modal extends Component {
                         <CartProduct products={this.props.products}/>
                         <p>{"Total price: " + totalPrice.toFixed(2) + "$"}</p>
                     </div>
-                    <CheckoutButton/>
+                    <CheckoutButton clicked={this.props.continueToCheckout}/>
                     <BackButton clicked={this.props.modalClosed}/>
                 </div>
             </>
