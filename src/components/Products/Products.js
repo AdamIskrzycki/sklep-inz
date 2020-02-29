@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Product from '../Products/Product/Product';
 import Cart from '../Cart/Cart';
+import EmptyCart from '../Cart/EmptyCart';
 import Modal from '../PurchaseSummary/Modal/Modal';
 
 class Products extends Component {
@@ -13,14 +14,15 @@ class Products extends Component {
         ] ,
         cartProducts: [],
         showModal: false,
-        clearCart: false
+        clearCart: false,
+        isCartEmpty: false
       }
     
      updateCart = (product) => {
         
         this.setState({
             cartProducts: this.state.cartProducts.concat(product)
-          })
+          });
     
       }
 
@@ -37,7 +39,7 @@ class Products extends Component {
       }
 
       handleCartClearing = () => {
-        this.setState({cartProducts: []});
+        this.setState({cartProducts: [], isCartEmpty: true});
       }
 
 
@@ -50,7 +52,7 @@ class Products extends Component {
                     products={this.state.cartProducts}
                     handleModalAppearing={this.handleModalAppearing}
                     handleCartClearing={this.handleCartClearing}
-                /> : null}
+                /> : <EmptyCart empty={this.state.isCartEmpty}/>}
                 
                 {this.state.showModal ? <Modal 
                     show={this.state.showModal}
