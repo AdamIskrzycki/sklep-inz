@@ -4,9 +4,15 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #737873;
+  font-family: 'NotoSans';
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+@font-face {
+  font-family: 'NotoSans';
+  src: local('NotoSans'), url(./fonts/NotoSans-Regular.ttf) format('truetype');
 }
