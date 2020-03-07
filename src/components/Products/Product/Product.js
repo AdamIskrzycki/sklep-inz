@@ -1,5 +1,6 @@
 import React from 'react';
 import './Product.css';
+import { Button } from '@material-ui/core';
 
 
 
@@ -20,7 +21,7 @@ const Product = (props) => {
         <div className='Product'>
             <p className="ProductName">{props.name}</p>
             <p>{crossedPrice}</p>
-            <button onClick={props.updateCart} className="BuyButton">Buy</button>
+            <Button onClick={props.updateCart} className="BuyButton" variant="contained">Buy</Button>
         </div>
     )
 }

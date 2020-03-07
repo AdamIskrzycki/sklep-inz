@@ -2,8 +2,10 @@ import React, {Component} from 'react';
 import Backdrop from '../Backdrop/Backdrop';
 import './Modal.css';
 import CartProduct from '../../Cart/CartProduct';
-import BackButton from '../Modal/Buttons/BackButton/BackButton';
-import CheckoutButton from '../Modal/Buttons/CheckoutButton/CheckoutButton';
+import { Button } from '@material-ui/core';
+import './Buttons/BackButton.css';
+import './Buttons/CheckoutButton.css';
+
 class Modal extends Component {
 
     render() {
@@ -24,8 +26,8 @@ class Modal extends Component {
                         <CartProduct products={this.props.products}/>
                         <p>{"Total price: " + totalPrice.toFixed(2) + "$"}</p>
                     </div>
-                    <CheckoutButton clicked={this.props.continueToCheckout}/>
-                    <BackButton clicked={this.props.modalClosed}/>
+                    <Button onClick={this.props.continueToCheckout} variant="contained" className="CheckoutButton">Checkout</Button>
+                    <Button onClick={this.props.modalClosed} variant="contained" className="BackButton">Back</Button>
                 </div>
             </>
         );
