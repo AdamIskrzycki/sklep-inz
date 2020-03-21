@@ -6,22 +6,25 @@ import { Button } from '@material-ui/core';
 
 const Product = (props) => {
 
-    let crossedPrice;
+    let price;
 
      if(props.discountedPrice) {
-        crossedPrice = 
+        price = 
         (   <>
                 <span className="CrossedPrice">{props.price + "$"}</span>
                 <span className="NewPrice">{"only " + props.discountedPrice + "$"}</span>
             </>
         ) 
-    } else crossedPrice = <span>{props.price + "$"}</span>
+    } else price = <span>{props.price + "$"}</span>
 
     return (
         <div className='Product'>
             <p className="ProductName">{props.name}</p>
-            <p>{crossedPrice}</p>
-            <Button onClick={props.updateCart} className="BuyButton" variant="contained">Buy</Button>
+            <p>{price}</p>
+            <Button onClick={props.updateCart} size='small' variant="contained" style={{
+                marginBottom: '5px',
+                fontWeight: '600'
+                }}>Buy</Button>
         </div>
     )
 }

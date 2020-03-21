@@ -26,8 +26,19 @@ class Modal extends Component {
                         <CartProduct products={this.props.products}/>
                         <p>{"Total price: " + totalPrice.toFixed(2) + "$"}</p>
                     </div>
-                    <Button onClick={this.props.continueToCheckout} variant="contained" className="CheckoutButton">Checkout</Button>
-                    <Button onClick={this.props.modalClosed} variant="contained" className="BackButton">Back</Button>
+                    <Button onClick={this.props.continueToCheckout}
+                            variant="contained" 
+                            style={{
+                                marginRight: '20px',
+                                backgroundColor: '#B6FCD5',
+                                fontWeight: '600'
+                                }}>Checkout</Button>
+                    <Button onClick={this.props.modalClosed}
+                             variant="contained"
+                             style={{
+                                backgroundColor: '#FF9191',
+                                fontWeight: '600'
+                             }} >Back</Button>
                 </div>
             </>
         );
