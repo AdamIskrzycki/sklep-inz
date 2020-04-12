@@ -3,17 +3,13 @@ import Product from '../Products/Product/Product';
 import Cart from '../Cart/Cart';
 import EmptyCart from '../Cart/EmptyCart';
 import CartProduct from '../Cart/CartProduct';
-import Modal from '../PurchaseSummary/Modal/Modal';
+import axios from 'axios';
 import { Dialog, Button, DialogContent, DialogTitle, Typography } from '@material-ui/core';
 
 class Products extends Component {
 
     state = {
-        products: [
-          { name: "Water", price: 2, discountedPrice: 1.5, id: 1},
-          { name: "Bread", price: 2.5, discountedPrice: 2, id: 2},
-          { name: "Cheese", price: 4.59, id: 3}
-        ] ,
+        products: null,
         cartProducts: [],
         showModal: false,
         clearCart: false,
@@ -46,15 +42,22 @@ class Products extends Component {
         this.setState({cartProducts: [], isCartEmpty: true});
       }
 
+      componentDidMount () {
+        axios.get('https://shop-308e8.firebaseio.com/products.json')
+            .then(response => {
+                this.setState({products: response.data})
+        });
+      }
+
 
     render() {
 
         const totalPrice = this.state.cartProducts.reduce((acc, product) => product.discountedPrice ? acc + product.discountedPrice : acc + product.price, 0);
-
         return (
             <React.Fragment>
+                
 
-                {this.state.cartProducts.length > 0 ? <Cart
+                {   this.state.cartProducts.length > 0 ? <Cart
                     products={this.state.cartProducts}
                     handleModalAppearing={this.handleModalAppearing}
                     handleCartClearing={this.handleCartClearing}
@@ -89,7 +92,7 @@ class Products extends Component {
                 
 
                 
-                    {this.state.products.map((product, index) => {
+                    { this.state.products ? this.state.products.map((product, index) => {
                         
                         return (
                             <Product
@@ -100,7 +103,8 @@ class Products extends Component {
                                 key={product.id}/>
                             )   
                         }
-                    )}
+                    ) : null
+                }
 
                     
 
