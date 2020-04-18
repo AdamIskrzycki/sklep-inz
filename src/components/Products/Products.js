@@ -3,8 +3,8 @@ import Product from '../Products/Product/Product';
 import Cart from '../Cart/Cart';
 import EmptyCart from '../Cart/EmptyCart';
 import CartProduct from '../Cart/CartProduct';
-import axios from 'axios';
 import { Dialog, Button, DialogContent, DialogTitle, Typography } from '@material-ui/core';
+import { db } from '../../firebase';
 
 class Products extends Component {
 
@@ -43,11 +43,22 @@ class Products extends Component {
       }
 
       componentDidMount () {
-        axios.get('https://shop-308e8.firebaseio.com/products.json')
-            .then(response => {
-                this.setState({products: response.data})
-        });
+          db.collection('products').get().then( snapshot => {
+              const updatedProducts = [];
+              snapshot.forEach( doc => {
+                  const data = doc.data();
+                  updatedProducts.push(data);
+              })
+              this.setState({products: updatedProducts});
+          })
       }
+
+    //   componentDidMount () {
+    //     axios.get('https://shop-308e8.firebaseio.com/products.json')
+    //         .then(response => {
+    //             this.setState({products: response.data})
+    //     });
+    //   }
 
 
     render() {
