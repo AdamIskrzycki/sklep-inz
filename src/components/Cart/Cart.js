@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import "./Cart.css";
 import CartProduct from './CartProduct';
-import OrderButton from './CartButtons/OrderButton';
-import ClearCartButton from './CartButtons/ClearCartButton';
-
+import { Button } from '@material-ui/core';
 class Cart extends Component {
 
     render() {
@@ -14,9 +12,20 @@ class Cart extends Component {
             <p style={{textDecoration: 'underline'}}>CART</p>
                 <p>{this.props.products ? "Total amount of products: " + this.props.products.length : "Your cart is cleared"}</p>
                 <p>{"Total price: " + totalPrice.toFixed(2) + "$"}</p>
-            <CartProduct products={this.props.products} />
-            <ClearCartButton clicked={this.props.handleCartClearing}/>
-            <OrderButton loadModal={this.props.handleModalAppearing}/>
+                <div style={{marginBottom: '20px'}}>
+                    <CartProduct products={this.props.products} />
+                </div>
+            <Button onClick={this.props.handleCartClearing}
+                    size='small' variant="contained" 
+                    style={{
+                        marginRight: '10px',
+                        fontWeight: '600'
+                        }}>Clear Cart</Button>
+            <Button onClick={this.props.handleModalAppearing} 
+                    size='small' 
+                    variant="contained" style={{
+                        fontWeight: '600'
+                    }}>Order</Button>
         </div>
         );
     }

@@ -10,10 +10,9 @@
 }
 
 .BuyButton {
-    margin-bottom: 5px;
-    border-radius: 3px;
-    border: 1px solid black;
-    cursor: pointer;
+    margin-bottom: 15px;
+    background-color: black;    
+    cursor: pointer;    
 }
 
 .CrossedPrice {

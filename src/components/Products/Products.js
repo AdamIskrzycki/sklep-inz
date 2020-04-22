@@ -2,7 +2,9 @@ import React, {Component} from 'react';
 import Product from '../Products/Product/Product';
 import Cart from '../Cart/Cart';
 import EmptyCart from '../Cart/EmptyCart';
+import CartProduct from '../Cart/CartProduct';
 import Modal from '../PurchaseSummary/Modal/Modal';
+import { Dialog, Button, DialogContent, DialogTitle, Typography } from '@material-ui/core';
 
 class Products extends Component {
 
@@ -17,6 +19,8 @@ class Products extends Component {
         clearCart: false,
         isCartEmpty: false
       }
+
+      
     
      updateCart = (product) => {
         
@@ -45,21 +49,42 @@ class Products extends Component {
 
     render() {
 
+        const totalPrice = this.state.cartProducts.reduce((acc, product) => product.discountedPrice ? acc + product.discountedPrice : acc + product.price, 0);
+
         return (
             <React.Fragment>
-                
+
                 {this.state.cartProducts.length > 0 ? <Cart
                     products={this.state.cartProducts}
                     handleModalAppearing={this.handleModalAppearing}
                     handleCartClearing={this.handleCartClearing}
                 /> : <EmptyCart empty={this.state.isCartEmpty}/>}
                 
-                {this.state.showModal ? <Modal 
-                    show={this.state.showModal}
-                    modalClosed={this.handleModalHiding}
-                    continueToCheckout={this.continueToCheckout}
-                    products={this.state.cartProducts}
-                /> : null}
+                {<Dialog open={this.state.showModal} onClose={this.handleModalHiding}>
+                    <DialogTitle style={{textAlign: 'center'}}>YOUR ORDER</DialogTitle>
+                    <DialogContent dividers>
+                    <Typography style={{marginBottom: '30px', textAlign: 'center'}}>
+                        <CartProduct products={this.state.cartProducts}/>
+                        <Typography style={{marginTop: '20px', fontWeight: '600'}}>{"Total price: " + totalPrice.toFixed(2) + "$"}</Typography>
+                    </Typography>
+                    
+
+                    <Button onClick={this.continueToCheckout}
+                            variant="contained" 
+                            style={{
+                                marginRight: '20px',
+                                backgroundColor: '#B6FCD5',
+                                fontWeight: '600'
+                                }}>Checkout</Button>
+                    <Button onClick={this.handleModalHiding}
+                             variant="contained"
+                             style={{
+                                backgroundColor: '#FF9191',
+                                fontWeight: '600'
+                             }} >Back</Button>
+                        
+                    </DialogContent>
+                </Dialog>}
 
                 
 
@@ -84,4 +109,4 @@ class Products extends Component {
     }
 }
 
-export default Products;
+export default Products; 
