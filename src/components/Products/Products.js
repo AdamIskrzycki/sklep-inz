@@ -3,8 +3,11 @@ import Product from '../Products/Product/Product';
 import Cart from '../Cart/Cart';
 import EmptyCart from '../Cart/EmptyCart';
 import CartProduct from '../Cart/CartProduct';
+import AdminPanelButton from '../AdminPanelButton/AdminPanelButton';
 import { Dialog, Button, DialogContent, DialogTitle, Typography } from '@material-ui/core';
 import { db } from '../../firebase';
+import { Route } from 'react-router-dom';
+import AdminPanel from '../../containers/AdminPanel/AdminPanel';
 
 class Products extends Component {
 
@@ -47,18 +50,11 @@ class Products extends Component {
               const updatedProducts = [];
               snapshot.forEach( doc => {
                   const data = doc.data();
-                  updatedProducts.push(data);
+                  updatedProducts.push({...data, id: doc.id});
               })
               this.setState({products: updatedProducts});
           })
       }
-
-    //   componentDidMount () {
-    //     axios.get('https://shop-308e8.firebaseio.com/products.json')
-    //         .then(response => {
-    //             this.setState({products: response.data})
-    //     });
-    //   }
 
 
     render() {
@@ -66,7 +62,11 @@ class Products extends Component {
         const totalPrice = this.state.cartProducts.reduce((acc, product) => product.discountedPrice ? acc + product.discountedPrice : acc + product.price, 0);
         return (
             <React.Fragment>
-                
+
+                    <AdminPanelButton/>
+                    
+            
+                <h1 className='Title'>Welcome to my shop!</h1>
 
                 {   this.state.cartProducts.length > 0 ? <Cart
                     products={this.state.cartProducts}
@@ -74,7 +74,7 @@ class Products extends Component {
                     handleCartClearing={this.handleCartClearing}
                 /> : <EmptyCart empty={this.state.isCartEmpty}/>}
                 
-                {<Dialog open={this.state.showModal} onClose={this.handleModalHiding}>
+                { <Dialog open={this.state.showModal} onClose={this.handleModalHiding}>
                     <DialogTitle style={{textAlign: 'center'}}>YOUR ORDER</DialogTitle>
                     <DialogContent dividers>
                     <Typography style={{marginBottom: '30px', textAlign: 'center'}}>
@@ -98,7 +98,7 @@ class Products extends Component {
                              }} >Back</Button>
                         
                     </DialogContent>
-                </Dialog>}
+                </Dialog> }
 
                 
 

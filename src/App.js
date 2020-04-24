@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
 import Shop from './containers/Shop/Shop';
+import { BrowserRouter } from 'react-router-dom';
 
 
 
@@ -9,10 +10,11 @@ class App extends Component {
 
 render() {
   return (
-  <div className="App">
-    <h1>Welcome to my shop!</h1>
-    <Shop />
-  </div>
+    <BrowserRouter basename='/'>
+      <div className="App">
+        <Shop />
+      </div>
+    </BrowserRouter>
 );
 
 }
