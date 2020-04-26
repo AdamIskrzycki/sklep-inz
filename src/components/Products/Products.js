@@ -3,11 +3,10 @@ import Product from '../Products/Product/Product';
 import Cart from '../Cart/Cart';
 import EmptyCart from '../Cart/EmptyCart';
 import CartProduct from '../Cart/CartProduct';
-import AdminPanelButton from '../AdminPanelButton/AdminPanelButton';
+import Navigation from '../Navigation/Navigation';
 import { Dialog, Button, DialogContent, DialogTitle, Typography } from '@material-ui/core';
 import { db } from '../../firebase';
-import { Route } from 'react-router-dom';
-import AdminPanel from '../../containers/AdminPanel/AdminPanel';
+import '../Navigation/Navigation.css';
 
 class Products extends Component {
 
@@ -63,7 +62,7 @@ class Products extends Component {
         return (
             <React.Fragment>
 
-                    <AdminPanelButton/>
+                    <Navigation className='Navigation'/>
                     
             
                 <h1 className='Title'>Welcome to my shop!</h1>

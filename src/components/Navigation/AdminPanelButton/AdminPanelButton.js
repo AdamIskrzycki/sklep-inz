@@ -8,7 +8,8 @@ const AdminPanelButton = () => {
         <Link to='/admin'><Button size='small' variant='contained' style={{
             fontWeight: '600',
             position: 'absolute',
-            marginLeft: '35%'
+            marginLeft: '35%',
+            display: 'inline-block'
         }}>Admin Panel</Button></Link>
     )
 }
