@@ -102,7 +102,7 @@ class Products extends Component {
                 
 
                 
-                    { this.state.products ? this.state.products.map((product, index) => {
+                    { this.state.products ? this.state.products.map(product => {
                         
                         return (
                             <Product

@@ -3,3 +3,12 @@
     font-weight: bold;
     letter-spacing: 1px;
 }
+
+.InfoSection {
+    width: 550px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 70px;
+    text-align: center;
+    font-size: 24px;
+}
