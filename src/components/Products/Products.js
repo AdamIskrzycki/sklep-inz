@@ -59,6 +59,7 @@ class Products extends Component {
     render() {
 
         const totalPrice = this.state.cartProducts.reduce((acc, product) => product.discountedPrice ? acc + product.discountedPrice : acc + product.price, 0);
+        console.log(this.state.products);
         return (
             <React.Fragment>
 
@@ -101,7 +102,8 @@ class Products extends Component {
 
                 
 
-                
+                    <div style={{width: '1000px', margin: 'auto', marginTop: '100px'}}>
+
                     { this.state.products ? this.state.products.map(product => {
                         
                         return (
@@ -115,6 +117,8 @@ class Products extends Component {
                         }
                     ) : null
                 }
+
+                    </div>
 
                     
 

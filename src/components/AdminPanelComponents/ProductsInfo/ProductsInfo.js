@@ -6,6 +6,13 @@ const ProductsInfo = (props) => {
         <React.Fragment>
             <div className='ProductsInfo'>
                 <h2>Current stock:</h2>
+                <ul>
+                    {props.products && props.products.map(product => {
+                        return (
+                        <li>{product.name}  {product.price}</li>
+                        )
+                    })}
+                </ul>
             </div>
         </React.Fragment>
     )
