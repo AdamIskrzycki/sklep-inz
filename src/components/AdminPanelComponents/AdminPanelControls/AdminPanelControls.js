@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import './AdminPanelControls.css';
 import { Button } from '@material-ui/core';
-import { db } from '../../../firebase';
 
 
 class AdminPanelControls extends Component {
@@ -19,7 +18,7 @@ class AdminPanelControls extends Component {
         
         this.setState({ [name]: value });
     }
-
+    
 
     render() {
           
@@ -32,11 +31,11 @@ class AdminPanelControls extends Component {
                     </section>
                     <section>
                         <p className='ControlTitle'>Price</p>
-                        <input type='number' name='price' step='0.01' onChange={this.onInputChange}></input>
+                        <input type='number' name='price' step='0.01' min='0.01' onChange={this.onInputChange}></input>
                     </section>
                     <section>
                         <p className='ControlTitle'>Discounted Price</p>
-                        <input type='number' name='discountedPrice' step='0.01' onChange={this.onInputChange}></input>
+                        <input type='number' name='discountedPrice' step='0.01' min='0.01' onChange={this.onInputChange}></input>
                     </section>
 
                     <Button onClick={() => this.props.add(this.state.name, Number(this.state.price), Number(this.state.discountedPrice))} variant='contained' size='small' style={{

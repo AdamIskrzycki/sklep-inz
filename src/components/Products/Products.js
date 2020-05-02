@@ -79,7 +79,7 @@ class Products extends Component {
                     <DialogContent dividers>
                     <Typography style={{marginBottom: '30px', textAlign: 'center'}}>
                         <CartProduct products={this.state.cartProducts}/>
-                        <Typography style={{marginTop: '20px', fontWeight: '600'}}>{"Total price: " + totalPrice.toFixed(2) + "$"}</Typography>
+                        <Typography style={{marginTop: '20px', fontWeight: '600'}}>{"Total price: $" + totalPrice.toFixed(2)}</Typography>
                     </Typography>
                     
 

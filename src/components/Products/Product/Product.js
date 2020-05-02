@@ -11,11 +11,11 @@ const Product = (props) => {
      if(props.discountedPrice) {
         price = 
         (   <>
-                <span className="CrossedPrice">{props.price + "$"}</span>
-                <span className="NewPrice">{"only " + props.discountedPrice + "$"}</span>
+                <span className="CrossedPrice">{'$' + props.price}</span>
+                <span className="NewPrice">{"only $" + props.discountedPrice}</span>
             </>
         ) 
-    } else price = <span>{props.price + "$"}</span>
+    } else price = <span>{'$' + props.price}</span>
 
     return (
         <div className='Product'>

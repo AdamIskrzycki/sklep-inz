@@ -8,3 +8,18 @@ h2 {
     text-decoration: underline;
     font-size: 25px;
 }
+
+.CurrentStock {
+    list-style-type: none;
+    margin-right: 40px;
+}
+
+li {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.Caption {
+    font-size: 20px;
+    font-weight: 600;
+}

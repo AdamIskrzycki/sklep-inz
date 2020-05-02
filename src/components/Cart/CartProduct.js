@@ -27,7 +27,7 @@ const CartProduct = (props) => {
             <>
                 <div className="ProductInfo" key={product.id}>
                     <span>{product.name + " | "}</span>
-                    <span>{product.discountedPrice ? product.discountedPrice + "$" : product.price + "$"}</span>
+                    <span>{product.discountedPrice ?  '$' + product.discountedPrice : '$' + product.price}</span>
                     <span>{' | x' + product.count}</span>
                     <br/>
                 </div>

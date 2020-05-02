@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import AdminPanelButton from '../../components/Navigation/AdminPanelButton/AdminPanelButton';
-import HomeButton from '../../components/Navigation/HomeButton/HomeButton';
-import ProductsInfo from '../../components/AdminPanelComponents/ProductsInfo/ProductsInfo';
 import './AdminPanel.css';
+import ProductsInfo from '../../components/AdminPanelComponents/ProductsInfo/ProductsInfo';
 import AdminPanelControls from '../../components/AdminPanelComponents/AdminPanelControls/AdminPanelControls';
+import Navigation from '../../components/Navigation/Navigation';
 import { db } from '../../firebase'; 
 
 class AdminPanel extends Component {
@@ -20,7 +19,6 @@ class AdminPanel extends Component {
         }); 
 
         this.getProducts();
-
     }
     
     getProducts = () => {
@@ -30,8 +28,14 @@ class AdminPanel extends Component {
                 const data = doc.data();
                 updatedProducts.push({...data, id: doc.id});
             })
+            
             this.setState({products: updatedProducts});
         })
+    }
+
+    deleteProduct = (id) => {
+        db.collection('products').doc(id).delete();
+        this.getProducts();
     }
 
     componentDidMount = () => {
@@ -39,11 +43,11 @@ class AdminPanel extends Component {
     }
 
     render() {
+
         return(
                 <React.Fragment>
-                    <HomeButton />
-                    <AdminPanelButton />
-                    <ProductsInfo products={this.state.products}/>
+                    <Navigation />
+                    <ProductsInfo products={this.state.products} delete={this.deleteProduct}/>
                     <header className='Title'>Welcome to the Admin Panel!</header>
                     <section className='InfoSection'>Here, you are able to create your own products and add them to the shop. Specify all of the properties below and click 'Add' to begin.</section>
                     <AdminPanelControls add={this.addNewProduct}/>
