@@ -34,8 +34,9 @@ class AdminPanel extends Component {
     }
 
     deleteProduct = (id) => {
-        db.collection('products').doc(id).delete();
-        this.getProducts();
+        db.collection('products').doc(id).delete().then(
+            this.getProducts()
+        );
     }
 
     componentDidMount = () => {

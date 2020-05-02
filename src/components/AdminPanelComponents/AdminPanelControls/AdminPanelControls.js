@@ -18,6 +18,11 @@ class AdminPanelControls extends Component {
         
         this.setState({ [name]: value });
     }
+
+    clearInputs = () => {
+        this.setState({name: '', price: null, discountedPrice: null})
+        this.props.add(this.state.name, Number(this.state.price), Number(this.state.discountedPrice));
+    }
     
 
     render() {
@@ -38,7 +43,7 @@ class AdminPanelControls extends Component {
                         <input type='number' name='discountedPrice' step='0.01' min='0.01' onChange={this.onInputChange}></input>
                     </section>
 
-                    <Button onClick={() => this.props.add(this.state.name, Number(this.state.price), Number(this.state.discountedPrice))} variant='contained' size='small' style={{
+                    <Button onClick={this.clearInputs} variant='contained' size='small' style={{
                         fontWeight: '600',
                         display: 'flex',
                         marginLeft: 'auto',
