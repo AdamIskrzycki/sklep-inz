@@ -49,6 +49,7 @@ class Products extends Component {
               const updatedProducts = [];
               snapshot.forEach( doc => {
                   const data = doc.data();
+                  console.log(data);
                   updatedProducts.push({...data, id: doc.id});
               })
               this.setState({products: updatedProducts});
@@ -58,8 +59,8 @@ class Products extends Component {
 
     render() {
 
-        const totalPrice = this.state.cartProducts.reduce((acc, product) => product.discountedPrice ? acc + product.discountedPrice : acc + product.price, 0);
-        console.log(this.state.products);
+
+        const totalPrice = this.state.cartProducts.reduce((acc, product) => product.discountedPrice ? acc + +product.discountedPrice : acc + +product.price, 0);
         return (
             <React.Fragment>
 
@@ -79,7 +80,7 @@ class Products extends Component {
                     <DialogContent dividers>
                     <Typography style={{marginBottom: '30px', textAlign: 'center'}}>
                         <CartProduct products={this.state.cartProducts}/>
-                        <Typography style={{marginTop: '20px', fontWeight: '600'}}>{"Total price: $" + totalPrice.toFixed(2)}</Typography>
+                <Typography style={{marginTop: '20px', fontWeight: '600'}}>{"Total price: $" + totalPrice.toFixed(2)}</Typography>
                     </Typography>
                     
 

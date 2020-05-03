@@ -5,7 +5,7 @@ import { Button } from '@material-ui/core';
 class Cart extends Component {
 
     render() {
-        const totalPrice = this.props.products.reduce((acc, product) => product.discountedPrice ? acc + product.discountedPrice : acc + product.price, 0);
+        const totalPrice = this.props.products.reduce((acc, product) => product.discountedPrice ? acc + +product.discountedPrice : acc + +product.price, 0);
 
     return (
         <div className="Cart">

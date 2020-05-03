@@ -23,6 +23,7 @@ class AdminPanelControls extends Component {
     clearInputs = () => {
         this.props.add(this.state.name, this.state.price, this.state.discountedPrice);
         this.setState({name: '', price: '', discountedPrice: '', isInputEmpty: true});
+        document.getElementById('focus').focus();
     }
     
 
@@ -33,7 +34,7 @@ class AdminPanelControls extends Component {
                 <div className='AdminPanelControls'>
                     <section>
                         <p className='ControlTitle'>Name</p>
-                        <input type='text' name='name' onChange={this.onInputChange} value={this.state.name}></input>
+                        <input id='focus' type='text' name='name' onChange={this.onInputChange} value={this.state.name} autoFocus></input>
                     </section>
                     <section>
                         <p className='ControlTitle'>Price</p>
