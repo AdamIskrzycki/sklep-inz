@@ -14,8 +14,8 @@ class AdminPanel extends Component {
     addNewProduct = (name, price, discountedPrice) => {
         db.collection('products').add({
             name: name,
-            price: price,
-            discountedPrice: discountedPrice
+            price: +price,
+            discountedPrice: +discountedPrice
         }); 
 
         this.getProducts();
