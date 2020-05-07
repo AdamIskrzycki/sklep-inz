@@ -60,7 +60,7 @@ class Products extends Component {
     render() {
 
 
-        const totalPrice = this.state.cartProducts.reduce((acc, product) => product.discountedPrice ? acc + +product.discountedPrice : acc + +product.price, 0);
+        const totalPrice = this.state.cartProducts.reduce((acc, product) => product.discountedPrice ? acc + product.discountedPrice : acc + product.price, 0);
         return (
             <React.Fragment>
 
