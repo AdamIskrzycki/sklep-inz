@@ -16,19 +16,6 @@ const CartProduct = (props) => {
             }
         });
 
-        // const map = new Map();
-        
-        // list.forEach((item) => {
-        //      const key = keyGetter(item);
-        //      const collection = map.get(key);
-        //      if (!collection) {
-        //          map.set(key, [item]);
-        //      } else {
-        //          collection.push(item);
-        //      }
-        // });
-        // return map;
-
         return map;
     }
 
@@ -40,7 +27,7 @@ const CartProduct = (props) => {
             <>
                 <div className="ProductInfo" key={product.id}>
                     <span>{product.name + " | "}</span>
-                    <span>{product.discountedPrice ? product.discountedPrice + "$" : product.price + "$"}</span>
+                    <span>{product.discountedPrice ?  '$' + product.discountedPrice : '$' + product.price}</span>
                     <span>{' | x' + product.count}</span>
                     <br/>
                 </div>

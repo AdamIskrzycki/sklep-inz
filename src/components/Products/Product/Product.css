@@ -6,7 +6,7 @@
     display: inline-block;
     margin: 15px;
     font-weight: 500;
-    margin-top: 130px; 
+    margin-top: 20px; 
 }
 
 .BuyButton {
@@ -27,4 +27,9 @@
 
 .ProductName {
     font-size: 20px;
+}
+
+.Title {
+    font-size: 40px;
+    letter-spacing: 1px;
 }
