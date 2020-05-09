@@ -30,6 +30,12 @@ export default function Header(props) {
         <Button className={classes.button} variant='text' color='inherit' component={Link} to={"/"}>
           Home
         </Button>
+        <Button className={classes.button} variant='text' color='inherit' component={Link} to={"/shop"}>
+          Shop
+        </Button>
+        <Button className={classes.button} variant='text' color='inherit' component={Link} to={"/admin"}>
+          Admin Panel
+        </Button>
       </Toolbar>
     </AppBar>
   );
