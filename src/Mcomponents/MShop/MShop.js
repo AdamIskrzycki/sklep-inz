@@ -9,6 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import { withStyles } from "@material-ui/core/styles";
 import { db } from "../../firebase";
+import MProduct from "./MProduct";
 
 const styles = (theme) => ({
   cardGrid: {
@@ -84,9 +85,7 @@ class MShop extends Component {
       return (
         <>
           <span className={classes.regularPriceCrossed}>{"$" + price}</span>
-          <span className={classes.discountedPrice}>
-            {"only $" + discountedPrice}
-          </span>
+          <span className={classes.discountedPrice}>{"only $" + discountedPrice}</span>
         </>
       );
     } else return <span className={classes.regularPrice}>{"$" + price}</span>;
@@ -109,65 +108,24 @@ class MShop extends Component {
   render() {
     const { classes } = this.props;
     const totalPrice = this.state.cartProducts.reduce(
-      (acc, product) =>
-        product.discountedPrice
-          ? acc + product.discountedPrice
-          : acc + product.price,
+      (acc, product) => (product.discountedPrice ? acc + product.discountedPrice : acc + product.price),
       0
     );
 
     return (
-      <>
-        <Typography
-          className={classes.header}
-          variant="h3"
-          align="center"
-          color="textPrimary"
-          paragraphvariant="h3"
-          paragraph
-        >
-          Begin Shopping!
-        </Typography>
-
-        <Container className={classes.cardGrid} maxWidth="md">
-          {/* End hero unit */}
-          <Grid container spacing={4}>
-            {this.state.products &&
-              this.state.products.map((product) => (
-                <Grid item key={product.id} xs={12} sm={6} md={4}>
-                  <Card className={classes.product}>
-                    <CardMedia
-                      className={classes.productMedia}
-                      image="https://source.unsplash.com/random"
-                      title={product.name}
-                    />
-                    <CardContent className={classes.productContent}>
-                      <Typography gutterBottom variant="h5" component="h2">
-                        {product.name}
-                      </Typography>
-                      <Typography>
-                        {this.displayPrice(
-                          product.price,
-                          product.discountedPrice
-                        )}
-                      </Typography>
-                    </CardContent>
-                    <CardActions>
-                      <Button
-                        variant="outline"
-                        size="small"
-                        color="primary"
-                        align="center"
-                      >
-                        Buy
-                      </Button>
-                    </CardActions>
-                  </Card>
-                </Grid>
-              ))}
-          </Grid>
-        </Container>
-      </>
+      <Container className={classes.cardGrid} maxWidth="md">
+        <Grid container spacing={4}>
+          {this.state.products &&
+            this.state.products.map((product) => (
+              <MProduct
+                name={product.name}
+                price={product.price}
+                discountedPrice={product.discountedPrice}
+                display={this.displayPrice}
+              />
+            ))}
+        </Grid>
+      </Container>
     );
   }
 }

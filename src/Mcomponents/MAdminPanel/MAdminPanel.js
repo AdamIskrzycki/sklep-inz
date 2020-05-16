@@ -10,13 +10,13 @@ class MAdminPanel extends Component {
   };
 
   addNewProduct = (name, price, discountedPrice) => {
-    db.collection("products").add({
-      name: name,
-      price: +price,
-      discountedPrice: +discountedPrice,
-    });
-
-    this.getProducts();
+    db.collection("products")
+      .add({
+        name: name,
+        price: +price,
+        discountedPrice: +discountedPrice,
+      })
+      .then(this.getProducts);
   };
 
   getProducts = () => {
@@ -34,7 +34,7 @@ class MAdminPanel extends Component {
   };
 
   deleteProduct = (id) => {
-    db.collection("products").doc(id).delete().then(this.getProducts());
+    db.collection("products").doc(id).delete().then(this.getProducts);
   };
 
   componentDidMount = () => {
@@ -44,20 +44,15 @@ class MAdminPanel extends Component {
   render() {
     return (
       <React.Fragment>
-        <Grid container spacing={3}>
-          <Grid item xs={3}>
-            <MProdcutsInfo
-              products={this.state.products}
-              delete={this.deleteProduct}
-            />
-          </Grid>
+        <Grid container>
+          <Grid item sm={0} md={1}></Grid>
           <Grid item sm={9} md={6}>
+            <MProdcutsInfo products={this.state.products} delete={this.deleteProduct} />
+          </Grid>
+          <Grid item xs={5}>
             <MAdminPanelControls add={this.addNewProduct} />
           </Grid>
-          <Grid item sm={0} md={3}></Grid>
         </Grid>
-        {/* <MProdcutsInfo products={this.state.products} delete={this.deleteProduct}/>
-                <MAdminPanelControls add={this.addNewProduct}/> */}
       </React.Fragment>
     );
   }
