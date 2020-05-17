@@ -6,7 +6,6 @@ import Header from "./Mcomponents/Header";
 import Footer from "./Mcomponents/Footer";
 import MShop from "./Mcomponents/MShop/MShop";
 import MAdminPanel from "./Mcomponents/MAdminPanel/MAdminPanel";
-import MCart from "./Mcomponents/MCart/MCart";
 
 const AppMaterial = () => {
   return (
@@ -25,8 +24,6 @@ const AppMaterial = () => {
   );
 };
 
-
-// edycja w admin panelu
 // upload zdjęć
 // przeniesienie metod firebasowych do osobnego pliku
 // cart

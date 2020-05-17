@@ -9,13 +9,16 @@ import {
   TableRow,
   TableBody,
   Typography,
+  Tooltip,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
     cursor: "pointer",
+    margin: "5px",
   },
 }));
 
@@ -46,8 +49,16 @@ const MProductsInfo = (props) => {
                   </TableCell>
                   <TableCell align="center">{product.price}</TableCell>
                   <TableCell align="center">{product.discountedPrice ? product.discountedPrice : " - "}</TableCell>
-                  <TableCell align="center" onClick={() => props.delete(product.id)}>
-                    <DeleteIcon className={classes.icon} />
+                  <TableCell align="center">
+                    <Tooltip title="Delete">
+                      <DeleteIcon onClick={() => props.delete(product.id)} className={classes.icon} />
+                    </Tooltip>
+                    <Tooltip title="Edit">
+                      <EditIcon
+                        onClick={() => props.edit(product)}
+                        className={classes.icon}
+                      />
+                    </Tooltip>
                   </TableCell>
                 </TableRow>
               ))}

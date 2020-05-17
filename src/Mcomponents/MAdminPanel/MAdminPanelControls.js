@@ -28,6 +28,7 @@ class MAdminPanelControls extends Component {
     price: "",
     discountedPrice: "",
     isInputEmpty: true,
+    isInEditMode: false,
   };
 
   onInputChange = (event) => {
@@ -37,11 +38,32 @@ class MAdminPanelControls extends Component {
     this.setState({ [name]: value, isInputEmpty: false });
   };
 
-  clearInputs = () => {
-    this.props.add(this.state.name, this.state.price, this.state.discountedPrice);
-    this.setState({ name: "", price: "", discountedPrice: "", isInputEmpty: true });
+  onButtonClick = () => {
+    if (this.state.isInEditMode) {
+      this.props.update(this.state.name, this.state.price, this.state.discountedPrice, this.state.productId);
+    } else {
+      this.props.add(this.state.name, this.state.price, this.state.discountedPrice);
+    }
+    this.setState({ name: "", price: "", discountedPrice: "", isInputEmpty: true, isInEditMode: false });
     document.getElementById("focus").focus();
   };
+
+  static getDerivedStateFromProps(props, state) {
+    console.log("product", props.product);
+    if (
+      (props.product && !state.isInEditMode) ||
+      (props.product && state.productId !== props.product.id) // uproscic warunek
+    ) {
+      return {
+        name: props.product.name,
+        price: props.product.price,
+        discountedPrice: props.product.discountedPrice,
+        productId: props.product.id,
+        isInEditMode: true,
+      };
+    }
+    return null;
+  }
 
   render() {
     const { classes } = this.props;
@@ -92,9 +114,9 @@ class MAdminPanelControls extends Component {
             variant="contained"
             color="primary"
             className={classes.addButton}
-            onClick={this.clearInputs}
+            onClick={this.onButtonClick}
           >
-            ADD
+            {this.state.isInEditMode ? "Save" : "Add"}
           </Button>
         </Container>
       </React.Fragment>
