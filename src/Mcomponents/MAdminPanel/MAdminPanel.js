@@ -11,15 +11,11 @@ class MAdminPanel extends Component {
   };
 
   addNewProduct = (name, price, discountedPrice) => {
-    let dupa = null;
-    if(discountedPrice !== '') { // zmienic na ternary
-      dupa = +discountedPrice
-    } 
     db.collection("products")
       .add({
         name: name,
         price: +price,
-        discountedPrice: dupa,
+        discountedPrice: discountedPrice === '' ? null : +discountedPrice,
       })
       .then(this.getProducts);
   };
@@ -51,8 +47,8 @@ class MAdminPanel extends Component {
       .doc(id)
       .set({
         name: name,
-        price: price,
-        discountedPrice: discountedPrice,
+        price: +price,
+        discountedPrice: discountedPrice === '' ? null : +discountedPrice,
       })
       .then(this.getProducts);
       this.setState({product: undefined});
@@ -63,15 +59,14 @@ class MAdminPanel extends Component {
   };
 
   render() {
-    console.log('product', this.state.product)
     return (
       <React.Fragment>
         <Grid container>
-          <Grid item sm={0} md={1}></Grid>
-          <Grid item sm={9} md={6}>
+          <Grid item sm={false} md={1}></Grid>
+          <Grid item sm={9} md={6} xs={11}>
             <MProdcutsInfo products={this.state.products} delete={this.deleteProduct} edit={this.editProduct} />
           </Grid>
-          <Grid item xs={5}>
+          <Grid item xs={11} md={5}>
             <MAdminPanelControls add={this.addNewProduct} update={this.updateProduct} product={this.state.product} />
           </Grid>
         </Grid>

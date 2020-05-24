@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import { withStyles } from "@material-ui/core/styles";
 import { db } from "../../firebase";
 import MProduct from "./MProduct";
+import MCart from "../MCart/MCart";
+import Cart from "../../components/Cart/Cart";
+import Box from "@material-ui/core/Box";
+import { GridList, GridListTile } from "@material-ui/core";
 
 const styles = (theme) => ({
   cardGrid: {
@@ -27,20 +27,6 @@ const styles = (theme) => ({
   productContent: {
     flexGrow: 1,
   },
-  regularPriceCrossed: {
-    fontSize: "20px",
-    fontWeight: "500",
-    textDecoration: "line-through",
-    color: "grey",
-  },
-  discountedPrice: {
-    fontSize: "30px",
-    color: "red",
-    marginLeft: "30px",
-  },
-  regularPrice: {
-    fontSize: "27px",
-  },
   header: {
     marginTop: "30px",
     letterSpacing: "2px",
@@ -54,28 +40,23 @@ class MShop extends Component {
     showModal: false,
     clearCart: false,
     isCartEmpty: false,
+    cartRendered: false,
   };
 
-  updateCart = (product) => {
-    this.setState({
-      cartProducts: this.state.cartProducts.concat(product),
-    });
+  addToCart = (product) => {
+    delete product.count;
+    this.setState({ cartProducts: [...this.state.cartProducts, product] });
   };
 
-  handleModalAppearing = () => {
-    this.setState({ showModal: true });
+  removeAllFromCart = (id) => {
+    this.setState({ cartProducts: [...this.state.cartProducts.filter((x) => x.id !== id)] });
   };
 
-  handleModalHiding = () => {
-    this.setState({ showModal: false });
-  };
-
-  continueToCheckout = () => {
-    alert("You continue!");
-  };
-
-  handleCartClearing = () => {
-    this.setState({ cartProducts: [], isCartEmpty: true });
+  removeOneFromCart = (id) => {
+    const findIndex = this.state.cartProducts.findIndex((el) => el.id === id);
+    const splicedArray = [...this.state.cartProducts];
+    splicedArray.splice(findIndex, 1);
+    this.setState({ cartProducts: splicedArray });
   };
 
   displayPrice = (price, discountedPrice) => {
@@ -98,7 +79,6 @@ class MShop extends Component {
         const updatedProducts = [];
         snapshot.forEach((doc) => {
           const data = doc.data();
-          console.log(data);
           updatedProducts.push({ ...data, id: doc.id });
         });
         this.setState({ products: updatedProducts });
@@ -106,26 +86,32 @@ class MShop extends Component {
   }
 
   render() {
-    const { classes } = this.props;
-    const totalPrice = this.state.cartProducts.reduce(
-      (acc, product) => (product.discountedPrice ? acc + product.discountedPrice : acc + product.price),
-      0
-    );
-
+    const isCartVisible = this.state.cartProducts.length > 0;
     return (
-      <Container className={classes.cardGrid} maxWidth="md">
-        <Grid container spacing={4}>
-          {this.state.products &&
-            this.state.products.map((product) => (
-              <MProduct
-                name={product.name}
-                price={product.price}
-                discountedPrice={product.discountedPrice}
-                display={this.displayPrice}
-              />
-            ))}
+      <Box mt={5} ml={5}>
+        <Grid container spacing={2} xs={12} alignContent="center">
+          <Grid item container spacing={2} xs={isCartVisible ? 8 : 12}>
+            {this.state.products &&
+              this.state.products.map((product) => (
+                <Grid item key={this.props.id} xs={8} sm={5} md={isCartVisible ? 3 : 2}>
+                  <MProduct data={product} display={this.displayPrice} key={product.id} onBuy={this.addToCart} />
+                </Grid>
+              ))}
+          </Grid>
+          {isCartVisible && (
+            <Grid item container xs={4}>
+              <Grid item xs={12}>
+                <MCart
+                  products={this.state.cartProducts}
+                  addItem={this.addToCart}
+                  removeAll={this.removeAllFromCart}
+                  removeOne={this.removeOneFromCart}
+                />
+              </Grid>
+            </Grid>
+          )}
         </Grid>
-      </Container>
+      </Box>
     );
   }
 }

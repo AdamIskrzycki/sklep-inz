@@ -1,10 +1,10 @@
 import React from "react";
 import { Button, Grid, Card, Typography, CardActions, CardContent, CardMedia } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import MCart from "../MCart/MCart";
 
 const useStyles = makeStyles((theme) => ({
   product: {
-    height: "100%",
     display: "flex",
     flexDirection: "column",
   },
@@ -14,28 +14,49 @@ const useStyles = makeStyles((theme) => ({
   productContent: {
     flexGrow: 1,
   },
+  regularPriceCrossed: {
+    fontSize: "20px",
+    fontWeight: "500",
+    textDecoration: "line-through",
+    color: "grey",
+  },
+  discountedPrice: {
+    fontSize: "30px",
+    color: "red",
+    marginLeft: "30px",
+  },
+  regularPrice: {
+    fontSize: "27px",
+  },
 }));
 
 const MProduct = (props) => {
   const classes = useStyles();
 
   return (
-    <Grid item key={props.id} xs={12} sm={6} md={4}>
-      <Card className={classes.product}>
-        <CardMedia className={classes.productMedia} image="https://source.unsplash.com/random" title={props.name} />
-        <CardContent className={classes.productContent}>
-          <Typography gutterBottom variant="h5" component="h2">
-            {props.name}
-          </Typography>
-          <Typography>{props.display(props.price, props.discountedPrice)}</Typography>
-        </CardContent>
-        <CardActions>
-          <Button variant="outline" size="small" color="primary" align="center">
-            Buy
-          </Button>
-        </CardActions>
-      </Card>
-    </Grid>
+    <Card className={classes.product}>
+      <CardMedia className={classes.productMedia} image="https://source.unsplash.com/random" title={props.data.name} />
+      <CardContent className={classes.productContent}>
+        <Typography gutterBottom variant="h5" component="h2">
+          {props.data.name}
+        </Typography>
+        <Typography>
+          {props.data.discountedPrice ? (
+            <>
+              <span className={classes.regularPriceCrossed}>{"$" + props.data.price}</span>
+              <span className={classes.discountedPrice}>{"only $" + props.data.discountedPrice}</span>
+            </>
+          ) : (
+            <span className={classes.regularPrice}>{"$" + props.data.price}</span>
+          )}
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button variant="text" size="small" color="primary" align="center" onClick={() => props.onBuy(props.data)}>
+          Buy
+        </Button>
+      </CardActions>
+    </Card>
   );
 };
 

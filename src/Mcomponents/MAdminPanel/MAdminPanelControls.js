@@ -49,7 +49,6 @@ class MAdminPanelControls extends Component {
   };
 
   static getDerivedStateFromProps(props, state) {
-    console.log("product", props.product);
     if (
       (props.product && !state.isInEditMode) ||
       (props.product && state.productId !== props.product.id) // uproscic warunek
