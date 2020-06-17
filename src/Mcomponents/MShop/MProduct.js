@@ -1,7 +1,6 @@
 import React from "react";
-import { Button, Grid, Card, Typography, CardActions, CardContent, CardMedia } from "@material-ui/core";
+import { Button,  Card, Typography, CardActions, CardContent, CardMedia } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import MCart from "../MCart/MCart";
 
 const useStyles = makeStyles((theme) => ({
   product: {
