@@ -10,12 +10,13 @@ class MAdminPanel extends Component {
     product: undefined,
   };
 
-  addNewProduct = (name, price, discountedPrice) => {
+  addNewProduct = (name, price, discountedPrice, image) => {
     db.collection("products")
       .add({
         name: name,
         price: +price,
         discountedPrice: discountedPrice === '' ? null : +discountedPrice,
+        image: image
       })
       .then(this.getProducts);
   };
@@ -42,13 +43,14 @@ class MAdminPanel extends Component {
     this.setState({ product });
   };
 
-  updateProduct = (name, price, discountedPrice, id) => {
+  updateProduct = (id, name, price, discountedPrice, image) => {
     db.collection("products")
       .doc(id)
       .set({
         name: name,
         price: +price,
         discountedPrice: discountedPrice === '' ? null : +discountedPrice,
+        image: image
       })
       .then(this.getProducts);
       this.setState({product: undefined});

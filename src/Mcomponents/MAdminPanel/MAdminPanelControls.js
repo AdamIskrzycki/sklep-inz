@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import { TextField, Button, Container, withStyles, Typography } from "@material-ui/core";
+import { TextField, Button, Container, withStyles, Typography, Box } from "@material-ui/core";
+import { storage } from "../../firebase";
 
 const styles = (theme) => ({
   addButton: {
     fontWeight: "500",
     display: "flex",
     margin: "auto",
-    marginLeft: "40%",
     marginTop: theme.spacing(2),
     width: "15%",
   },
@@ -19,6 +19,23 @@ const styles = (theme) => ({
     margin: "3px",
     marginTop: theme.spacing(6),
   },
+  image: {
+    maxWidth: "300px",
+    maxHeight: "200px",
+    marginTop: "50px",
+  },
+  fileInput: {
+    marginTop: "20px",
+    marginBottom: "20px",
+    marginLeft: '10%'
+  },
+  inputLabel: {
+    marginRight: '20px'
+  },
+  box: {
+    marginTop: "30px",
+    textAlign: "center",
+  },
 });
 
 class MAdminPanelControls extends Component {
@@ -27,25 +44,58 @@ class MAdminPanelControls extends Component {
     name: "",
     price: "",
     discountedPrice: "",
-    isInputEmpty: true,
     isInEditMode: false,
+    imageUrl: "",
   };
 
   onInputChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
 
-    this.setState({ [name]: value, isInputEmpty: false });
+    this.setState({ [name]: value });
   };
 
   onButtonClick = () => {
     if (this.state.isInEditMode) {
-      this.props.update(this.state.name, this.state.price, this.state.discountedPrice, this.state.productId);
+      this.props.update(
+        this.state.productId,
+        this.state.name,
+        this.state.price,
+        this.state.discountedPrice,
+        this.state.imageUrl
+      );
     } else {
-      this.props.add(this.state.name, this.state.price, this.state.discountedPrice);
+      this.props.add(this.state.name, this.state.price, this.state.discountedPrice, this.state.imageUrl);
     }
-    this.setState({ name: "", price: "", discountedPrice: "", isInputEmpty: true, isInEditMode: false });
+    this.setState({ name: "", price: "", discountedPrice: "", isInEditMode: false, imageUrl: "" });
     document.getElementById("focus").focus();
+  };
+
+  handleImageAsFile = (e) => {
+    const file = e.target.files[0];
+
+    if (file === undefined) return;
+
+    const uploadTask = storage.ref(`/images/${file.name}`).put(file);
+
+    uploadTask.on(
+      "state_changed",
+      (snapShot) => {
+        console.log(snapShot);
+      },
+      (err) => {
+        console.log(err);
+      },
+      () => {
+        storage
+          .ref("images")
+          .child(file.name)
+          .getDownloadURL()
+          .then((fireBaseUrl) => {
+            this.setState({ imageUrl: fireBaseUrl });
+          });
+      }
+    );
   };
 
   static getDerivedStateFromProps(props, state) {
@@ -66,6 +116,7 @@ class MAdminPanelControls extends Component {
 
   render() {
     const { classes } = this.props;
+    console.log(this.state);
 
     const inputProps = {
       step: "0.01",
@@ -108,15 +159,22 @@ class MAdminPanelControls extends Component {
             variant="outlined"
             className={classes.textField}
           />
-          <Button
-            disabled={this.state.isInputEmpty}
-            variant="contained"
-            color="primary"
-            className={classes.addButton}
-            onClick={this.onButtonClick}
-          >
-            {this.state.isInEditMode ? "Save" : "Add"}
-          </Button>
+          <Box className={classes.box}>
+            <Typography variant="h6" color="textSecondary" className={classes.fileInput}>
+              <label for="imageUpload" className={classes.inputLabel}>Upload Product Image</label>
+              <input id="imageUpload" type="file" onChange={this.handleImageAsFile} accept=".jpg, .jpeg, .png"></input>
+            </Typography>
+            <Button
+              disabled={this.state.name === "" || this.state.price === ""}
+              variant="contained"
+              color="primary"
+              className={classes.addButton}
+              onClick={this.onButtonClick}
+            >
+              {this.state.isInEditMode ? "Save" : "Add"}
+            </Button>
+            <img src={this.state.imageUrl} className={classes.image} alt=""></img>
+          </Box>
         </Container>
       </React.Fragment>
     );

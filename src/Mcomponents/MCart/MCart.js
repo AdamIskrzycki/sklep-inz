@@ -107,7 +107,7 @@ class MCart extends Component {
         <Typography variant="h5" className={classes.totalAmount}>
           {this.props.products ? "Total amount of products: " + this.props.products.length : "Your cart is cleared"}
         </Typography>
-        <Button variant="contained" color="primary" className={classes.checkoutButton}>
+        <Button variant="contained" color="primary" className={classes.checkoutButton} onClick={this.props.handleModalAppearing}>
           Checkout
         </Button>
       </>
