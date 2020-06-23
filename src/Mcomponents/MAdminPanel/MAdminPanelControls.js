@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { TextField, Button, Container, withStyles, Typography, Box } from "@material-ui/core";
 import { storage } from "../../firebase";
+import CloseIcon from '@material-ui/icons/Close';
 
 const styles = (theme) => ({
   addButton: {
@@ -27,15 +28,20 @@ const styles = (theme) => ({
   fileInput: {
     marginTop: "20px",
     marginBottom: "20px",
-    marginLeft: '10%'
+    marginLeft: "10%",
   },
   inputLabel: {
-    marginRight: '20px'
+    marginRight: "20px",
   },
   box: {
     marginTop: "30px",
     textAlign: "center",
   },
+  close: {
+    position: 'absolute',
+    marginTop: '20px',
+    cursor: 'pointer'
+  }
 });
 
 class MAdminPanelControls extends Component {
@@ -54,6 +60,10 @@ class MAdminPanelControls extends Component {
 
     this.setState({ [name]: value });
   };
+
+  setPlaceholderImage = () => {
+    this.setState({imageUrl: '/images/nophoto.jpg'})
+  }
 
   onButtonClick = () => {
     if (this.state.isInEditMode) {
@@ -99,10 +109,7 @@ class MAdminPanelControls extends Component {
   };
 
   static getDerivedStateFromProps(props, state) {
-    if (
-      (props.product && !state.isInEditMode) ||
-      (props.product && state.productId !== props.product.id) // uproscic warunek
-    ) {
+    if ((props.product && !state.isInEditMode) || (props.product && state.productId !== props.product.id)) {
       return {
         name: props.product.name,
         price: props.product.price,
@@ -161,7 +168,9 @@ class MAdminPanelControls extends Component {
           />
           <Box className={classes.box}>
             <Typography variant="h6" color="textSecondary" className={classes.fileInput}>
-              <label for="imageUpload" className={classes.inputLabel}>Upload Product Image</label>
+              <label for="imageUpload" className={classes.inputLabel}>
+                Upload Product Image
+              </label>
               <input id="imageUpload" type="file" onChange={this.handleImageAsFile} accept=".jpg, .jpeg, .png"></input>
             </Typography>
             <Button
@@ -174,6 +183,7 @@ class MAdminPanelControls extends Component {
               {this.state.isInEditMode ? "Save" : "Add"}
             </Button>
             <img src={this.state.imageUrl} className={classes.image} alt=""></img>
+            <CloseIcon onClick={this.setPlaceholderImage} className={classes.close} visibility={this.state.imageUrl === '' ? 'hidden' : 'visible'}/>
           </Box>
         </Container>
       </React.Fragment>

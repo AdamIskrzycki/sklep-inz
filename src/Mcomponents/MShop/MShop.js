@@ -17,7 +17,7 @@ const styles = (theme) => ({
     flexDirection: "column",
   },
   productMedia: {
-    paddingTop: "56.25%", // 16:9
+    paddingTop: "56.25%",
   },
   productContent: {
     flexGrow: 1,
@@ -121,24 +121,25 @@ class MShop extends Component {
         <Dialog open={this.state.showModal} onClose={this.handleModalHiding}>
           <DialogTitle style={{ textAlign: "center" }}>YOUR ORDER</DialogTitle>
           <DialogContent dividers>
-            <Typography style={{ marginBottom: "30px", textAlign: "center" }}></Typography>
-
+            <Typography style={{ marginBottom: "30px", textAlign: "center" }}>
+              
+            </Typography>
             <Button
               onClick={this.continueToCheckout}
               variant="contained"
+              color="primary"
               style={{
                 marginRight: "20px",
-                backgroundColor: "#B6FCD5",
                 fontWeight: "600",
               }}
             >
-              Checkout
+              Make order
             </Button>
             <Button
               onClick={this.handleModalHiding}
-              variant="contained"
+              variant="outlined"
+              color="primary"
               style={{
-                backgroundColor: "#FF9191",
                 fontWeight: "600",
               }}
             >

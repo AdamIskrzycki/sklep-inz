@@ -31,6 +31,8 @@ const styles = (theme) => ({
   },
   list: {
     marginLeft: "20%",
+    maxHeight: '232px',
+    overflowY: 'scroll'
   },
   totalPrice: {
     textAlign: "center",
