@@ -12,9 +12,10 @@ const useStyles = makeStyles((theme) => ({
   },
   productContent: {
     flexGrow: 1,
+    textAlign: "center",
   },
   regularPriceCrossed: {
-    fontSize: "20px",
+    fontSize: "30px",
     fontWeight: "500",
     textDecoration: "line-through",
     color: "grey",
@@ -25,7 +26,11 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "30px",
   },
   regularPrice: {
-    fontSize: "27px",
+    fontSize: "30px",
+  },
+  buyButton: {
+    marginLeft: "auto",
+    marginRight: "auto",
   },
 }));
 
@@ -55,7 +60,14 @@ const MProduct = (props) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button variant="text" size="small" color="primary" align="center" onClick={() => props.onBuy(props.data)}>
+        <Button
+          className={classes.buyButton}
+          variant="text"
+          size="medium"
+          color="primary"
+          align="center"
+          onClick={() => props.onBuy(props.data)}
+        >
           Buy
         </Button>
       </CardActions>

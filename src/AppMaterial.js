@@ -24,9 +24,7 @@ const AppMaterial = () => {
   );
 };
 
-// upload zdjęć
-// przeniesienie metod firebasowych do osobnego pliku
-// cart
-// shop
+// move firebase functions into firebaseService component
+// order summary in dialog component
 
 export default AppMaterial;
