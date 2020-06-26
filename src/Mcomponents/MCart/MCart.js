@@ -5,6 +5,7 @@ import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import DeleteIcon from "@material-ui/icons/Delete";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import { Link } from "react-router-dom";
 
 const styles = (theme) => ({
   root: {
@@ -26,13 +27,13 @@ const styles = (theme) => ({
   },
   cartProduct: {
     marginLeft: "25px",
-    letterSpacing: '1px',
-    fontWeight: '550'
+    letterSpacing: "1px",
+    fontWeight: "550",
   },
   list: {
     marginLeft: "20%",
-    maxHeight: '232px',
-    overflowY: 'auto'
+    maxHeight: "232px",
+    overflowY: "auto",
   },
   totalPrice: {
     textAlign: "center",
@@ -75,8 +76,6 @@ class MCart extends Component {
     return (
       <>
         <ShoppingCartIcon className={classes.cartIcon} />
-
-        {/* <Typography variant="h5" className={classes.align}>{"Total price: " + totalPrice.toFixed(2) + "$"}</Typography> */}
         <List className={classes.list}>
           {grouped.map((product) => (
             <ListItem alignItems="center">
@@ -109,7 +108,14 @@ class MCart extends Component {
         <Typography variant="h5" className={classes.totalAmount}>
           {this.props.products ? "Total amount of products: " + this.props.products.length : "Your cart is cleared"}
         </Typography>
-        <Button variant="contained" color="primary" className={classes.checkoutButton} onClick={this.props.handleModalAppearing}>
+        <Button
+          component={Link}
+          to={"/checkout"}
+          variant="contained"
+          color="primary"
+          className={classes.checkoutButton}
+          onClick={this.props.handleModalAppearing}
+        >
           Checkout
         </Button>
       </>

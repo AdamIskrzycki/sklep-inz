@@ -6,6 +6,7 @@ import Header from "./Mcomponents/Header";
 import Footer from "./Mcomponents/Footer";
 import MShop from "./Mcomponents/MShop/MShop";
 import MAdminPanel from "./Mcomponents/MAdminPanel/MAdminPanel";
+import MCheckout from './Mcomponents/MShop/MCheckout/MCheckout';
 
 const AppMaterial = () => {
   return (
@@ -17,6 +18,7 @@ const AppMaterial = () => {
           <Route exact path="/" component={Main} />
           <Route path="/shop" component={MShop} />
           <Route path="/admin" component={MAdminPanel} />
+          <Route path="/checkout" component={MCheckout} />
         </Switch>
       </main>
       <Footer />
