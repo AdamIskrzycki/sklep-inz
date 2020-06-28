@@ -49,7 +49,6 @@ class Products extends Component {
               const updatedProducts = [];
               snapshot.forEach( doc => {
                   const data = doc.data();
-                  console.log(data);
                   updatedProducts.push({...data, id: doc.id});
               })
               this.setState({products: updatedProducts});

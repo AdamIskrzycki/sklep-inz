@@ -5,9 +5,11 @@ const CartProduct = (props) => {
     const groupBy = (list, key) => {
 
         const map = [];
+        console.log('list', list);
 
         list.forEach((item) => {
             const collection = map.find(elem => elem[key] === item[key]);
+
             if(!collection) {
                 item.count = 1;
                 map.push(item);
@@ -20,7 +22,6 @@ const CartProduct = (props) => {
     }
 
     const grouped = groupBy(props.products, 'name');
-    console.log(grouped);
 
     const getItemInfo = grouped.map((product) => {
         return (
