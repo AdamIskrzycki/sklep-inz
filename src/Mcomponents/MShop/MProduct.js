@@ -2,6 +2,9 @@ import React from "react";
 import { Button, Card, Typography, CardActions, CardContent, CardMedia } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
+import * as actionTypes from '../../store/actions';
+import { connect } from 'react-redux';
+
 const useStyles = makeStyles((theme) => ({
   product: {
     display: "flex",
@@ -66,7 +69,7 @@ const MProduct = (props) => {
           size="medium"
           color="primary"
           align="center"
-          onClick={() => props.onBuy(props.data)}
+          onClick={() => props.onAddProduct(props.data)}
         >
           Buy
         </Button>
@@ -75,4 +78,11 @@ const MProduct = (props) => {
   );
 };
 
-export default MProduct;
+const mapDispatchToProps = dispatch => {
+  return {
+    onAddProduct: (product) => dispatch({type: actionTypes.ADD, cartProduct: product})
+  }
+}
+
+
+export default connect(null, mapDispatchToProps)(MProduct);

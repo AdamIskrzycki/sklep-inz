@@ -7,6 +7,9 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { Link } from "react-router-dom";
 
+import * as actionTypes from "../../store/actions";
+import { connect } from "react-redux";
+
 const styles = (theme) => ({
   root: {
     flexGrow: 1,
@@ -80,10 +83,10 @@ class MCart extends Component {
           {grouped.map((product) => (
             <ListItem alignItems="center">
               <Tooltip title="More">
-                <AddIcon className={classes.icon} onClick={() => this.props.addItem(product)} />
+                <AddIcon className={classes.icon} onClick={() => this.props.onAddProduct(product)} />
               </Tooltip>
               <Tooltip title="Less">
-                <RemoveIcon className={classes.icon} onClick={() => this.props.removeOne(product.id)} />
+                <RemoveIcon className={classes.icon} onClick={() => this.props.onRemoveProduct(product.id)} />
               </Tooltip>
               <ListItemText
                 primary={
@@ -97,7 +100,7 @@ class MCart extends Component {
                 }
               />
               <Tooltip title="Delete">
-                <DeleteIcon className={classes.icon} onClick={() => this.props.removeAll(product.id)}></DeleteIcon>
+                <DeleteIcon className={classes.icon} onClick={() => this.props.onRemoveAllProducts(product.id)}></DeleteIcon>
               </Tooltip>
             </ListItem>
           ))}
@@ -123,4 +126,12 @@ class MCart extends Component {
   }
 }
 
-export default withStyles(styles)(MCart);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onAddProduct: (product) => dispatch({type: actionTypes.ADD, cartProduct: product}),
+    onRemoveProduct: (id) => dispatch({type: actionTypes.REMOVE_ONE, productId: id}),
+    onRemoveAllProducts: (id) => dispatch({type: actionTypes.REMOVE_ALL, productId: id})
+  }
+};
+
+export default connect(null, mapDispatchToProps)(withStyles(styles)(MCart));
