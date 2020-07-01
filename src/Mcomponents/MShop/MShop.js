@@ -6,7 +6,6 @@ import MCart from "../MCart/MCart";
 import { Box, Grid } from "@material-ui/core";
 
 import { connect } from "react-redux";
-import * as actionTypes from "../../store/actions";
 
 const styles = (theme) => ({
   cardGrid: {
@@ -33,7 +32,6 @@ const styles = (theme) => ({
 class MShop extends Component {
   state = {
     products: null,
-    cartProducts: [],
   };
 
   displayPrice = (price, discountedPrice) => {
@@ -47,14 +45,6 @@ class MShop extends Component {
         </>
       );
     } else return <span className={classes.regularPrice}>{"$" + price}</span>;
-  };
-
-  handleModalAppearing = () => {
-    this.setState({ showModal: true });
-  };
-
-  handleModalHiding = () => {
-    this.setState({ showModal: false });
   };
 
   componentDidMount() {
@@ -94,7 +84,6 @@ class MShop extends Component {
                 <Grid item xs={12}>
                   <MCart
                     products={this.props.cartProducts}
-                    handleModalAppearing={this.handleModalAppearing}
                   />
                 </Grid>
               </Grid>

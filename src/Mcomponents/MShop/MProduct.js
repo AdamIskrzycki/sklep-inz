@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Card, Typography, CardActions, CardContent, CardMedia } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-import * as actionTypes from '../../store/actions';
+import * as actionCreators from '../../store/actions';
 import { connect } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
@@ -80,7 +80,7 @@ const MProduct = (props) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAddProduct: (product) => dispatch({type: actionTypes.ADD, cartProduct: product})
+    onAddProduct: (product) => dispatch(actionCreators.add(product))
   }
 }
 

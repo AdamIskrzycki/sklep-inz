@@ -1,17 +1,36 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import AppMaterial from './AppMaterial';
-import * as serviceWorker from './serviceWorker';
-import './fonts/NotoSans-Regular.ttf';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import AppMaterial from "./AppMaterial";
+import * as serviceWorker from "./serviceWorker";
+import "./fonts/NotoSans-Regular.ttf";
 
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import reducer from '../src/store/reducer';
+import { Provider } from "react-redux";
+import { createStore, applyMiddleware, compose } from "redux";
+import reducer from "../src/store/reducer";
+import thunk from 'redux-thunk';
 
-const store = createStore(reducer)
+const logger = (state) => {
+    return (next) => {
+      return (action) => {
+        console.log("[Middleware] Dispatching", action);
+        const result = next(action);
+        console.log("[Middleware] next state", store.getState());
+        return result;
+      };
+    };
+  };
 
-ReactDOM.render(<Provider store={store}><AppMaterial /></Provider>, document.getElementById('root'));
+  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = createStore(reducer, composeEnhancers(applyMiddleware(logger, thunk)));
+
+ReactDOM.render(
+  <Provider store={store}>
+    <AppMaterial />
+  </Provider>,
+  document.getElementById("root")
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

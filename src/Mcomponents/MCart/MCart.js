@@ -7,8 +7,9 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { Link } from "react-router-dom";
 
-import * as actionTypes from "../../store/actions";
+import * as actionCreators from "../../store/actions";
 import { connect } from "react-redux";
+import * as grouping from '../../service/grouping';
 
 const styles = (theme) => ({
   root: {
@@ -50,22 +51,7 @@ const styles = (theme) => ({
   },
 });
 
-const groupBy = (list, key) => {
-  const groupedArray = [];
 
-  list.forEach((item) => {
-    const collection = groupedArray.find((elem) => elem[key] === item[key]);
-
-    if (!collection) {
-      item.count = 1;
-      groupedArray.push(item);
-    } else {
-      collection.count++;
-    }
-  });
-
-  return groupedArray;
-};
 
 class MCart extends Component {
   render() {
@@ -75,7 +61,7 @@ class MCart extends Component {
       0
     );
 
-    const grouped = groupBy(this.props.products, "id").sort((a, b) => a.name.localeCompare(b.name));
+    const grouped = grouping.groupBy(this.props.products, "id").sort((a, b) => a.name.localeCompare(b.name));
     return (
       <>
         <ShoppingCartIcon className={classes.cartIcon} />
@@ -117,7 +103,6 @@ class MCart extends Component {
           variant="contained"
           color="primary"
           className={classes.checkoutButton}
-          onClick={this.props.handleModalAppearing}
         >
           Checkout
         </Button>
@@ -128,9 +113,9 @@ class MCart extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAddProduct: (product) => dispatch({type: actionTypes.ADD, cartProduct: product}),
-    onRemoveProduct: (id) => dispatch({type: actionTypes.REMOVE_ONE, productId: id}),
-    onRemoveAllProducts: (id) => dispatch({type: actionTypes.REMOVE_ALL, productId: id})
+    onAddProduct: (product) => dispatch(actionCreators.add(product)),
+    onRemoveProduct: (id) => dispatch(actionCreators.removeOne(id)),
+    onRemoveAllProducts: (id) => dispatch(actionCreators.removeAll(id))
   }
 };
 
