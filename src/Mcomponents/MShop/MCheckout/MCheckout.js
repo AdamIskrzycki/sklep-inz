@@ -1,14 +1,11 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
 import Paper from "@material-ui/core/Paper";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
 import Button from "@material-ui/core/Button";
-import Link from "@material-ui/core/Link";
 import Typography from "@material-ui/core/Typography";
 import AddressForm from "./AddressForm";
 import PaymentForm from "./PaymentForm";
@@ -98,8 +95,8 @@ export default function Checkout() {
                   Thank you for your order.
                 </Typography>
                 <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order confirmation, and will send you an update
-                  when your order has shipped.
+                  Your order is being processed and will be shipped to you in 2-5 days, for more information please
+                  contact us on onlineshop@gmail.com.
                 </Typography>
               </React.Fragment>
             ) : (

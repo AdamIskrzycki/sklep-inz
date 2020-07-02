@@ -7,6 +7,10 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { Link } from "react-router-dom";
 
+import * as actionCreators from "../../store/actions";
+import { connect } from "react-redux";
+import * as grouping from '../../service/grouping';
+
 const styles = (theme) => ({
   root: {
     flexGrow: 1,
@@ -47,22 +51,7 @@ const styles = (theme) => ({
   },
 });
 
-const groupBy = (list, key) => {
-  const groupedArray = [];
 
-  list.forEach((item) => {
-    const collection = groupedArray.find((elem) => elem[key] === item[key]);
-
-    if (!collection) {
-      item.count = 1;
-      groupedArray.push(item);
-    } else {
-      collection.count++;
-    }
-  });
-
-  return groupedArray;
-};
 
 class MCart extends Component {
   render() {
@@ -72,7 +61,7 @@ class MCart extends Component {
       0
     );
 
-    const grouped = groupBy(this.props.products, "id").sort((a, b) => a.name.localeCompare(b.name));
+    const grouped = grouping.groupBy(this.props.products, "id").sort((a, b) => a.name.localeCompare(b.name));
     return (
       <>
         <ShoppingCartIcon className={classes.cartIcon} />
@@ -80,10 +69,10 @@ class MCart extends Component {
           {grouped.map((product) => (
             <ListItem alignItems="center">
               <Tooltip title="More">
-                <AddIcon className={classes.icon} onClick={() => this.props.addItem(product)} />
+                <AddIcon className={classes.icon} onClick={() => this.props.onAddProduct(product)} />
               </Tooltip>
               <Tooltip title="Less">
-                <RemoveIcon className={classes.icon} onClick={() => this.props.removeOne(product.id)} />
+                <RemoveIcon className={classes.icon} onClick={() => this.props.onRemoveProduct(product.id)} />
               </Tooltip>
               <ListItemText
                 primary={
@@ -97,7 +86,7 @@ class MCart extends Component {
                 }
               />
               <Tooltip title="Delete">
-                <DeleteIcon className={classes.icon} onClick={() => this.props.removeAll(product.id)}></DeleteIcon>
+                <DeleteIcon className={classes.icon} onClick={() => this.props.onRemoveAllProducts(product.id)}></DeleteIcon>
               </Tooltip>
             </ListItem>
           ))}
@@ -114,7 +103,6 @@ class MCart extends Component {
           variant="contained"
           color="primary"
           className={classes.checkoutButton}
-          onClick={this.props.handleModalAppearing}
         >
           Checkout
         </Button>
@@ -123,4 +111,12 @@ class MCart extends Component {
   }
 }
 
-export default withStyles(styles)(MCart);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onAddProduct: (product) => dispatch(actionCreators.add(product)),
+    onRemoveProduct: (id) => dispatch(actionCreators.removeOne(id)),
+    onRemoveAllProducts: (id) => dispatch(actionCreators.removeAll(id))
+  }
+};
+
+export default connect(null, mapDispatchToProps)(withStyles(styles)(MCart));
