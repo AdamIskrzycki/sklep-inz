@@ -95,8 +95,8 @@ export default function Checkout() {
                   Thank you for your order.
                 </Typography>
                 <Typography variant="subtitle1">
-                  We have emailed your order confirmation, and will send you an update
-                  when your order has shipped.
+                  Your order is being processed and will be shipped to you in 2-5 days, for more information please
+                  contact us on onlineshop@gmail.com.
                 </Typography>
               </React.Fragment>
             ) : (
