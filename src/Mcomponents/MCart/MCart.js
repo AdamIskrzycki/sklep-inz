@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 
 import * as actionCreators from "../../store/actions";
 import { connect } from "react-redux";
-import * as grouping from '../../service/grouping';
+import { groupBy } from '../../utils';
 
 const styles = (theme) => ({
   root: {
@@ -61,7 +61,7 @@ class MCart extends Component {
       0
     );
 
-    const grouped = grouping.groupBy(this.props.products, "id").sort((a, b) => a.name.localeCompare(b.name));
+    const grouped = groupBy(this.props.products, "id").sort((a, b) => a.name.localeCompare(b.name));
     return (
       <>
         <ShoppingCartIcon className={classes.cartIcon} />
