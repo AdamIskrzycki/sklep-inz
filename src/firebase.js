@@ -3,7 +3,6 @@ import "firebase/firestore";
 import "firebase/auth";
 import "firebase/storage"
 
-// Your web app's Firebase configuration
 var firebaseConfig = {
   apiKey: "AIzaSyBicaRbaMp_gYwIGj5eB9nwyeXGZbDCZsw",
   authDomain: "shop-308e8.firebaseapp.com",
@@ -14,7 +13,7 @@ var firebaseConfig = {
   appId: "1:992445087980:web:7ed036f056fa31fbe625c9",
   measurementId: "G-Z6RCJK8JEP",
 };
-// Initialize Firebase
+
 firebase.initializeApp(firebaseConfig);
 
 export const db = firebase.firestore();

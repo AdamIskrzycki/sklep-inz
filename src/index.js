@@ -1,9 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import AppMaterial from "./AppMaterial";
+import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import "./fonts/NotoSans-Regular.ttf";
 
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose} from "redux";
@@ -15,7 +14,7 @@ const store = createStore(reducer, composeEnhancers(applyMiddleware()));
 
 ReactDOM.render(
   <Provider store={store}>
-    <AppMaterial />
+    <App />
   </Provider>,
   document.getElementById("root")
 );

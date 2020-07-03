@@ -44,7 +44,7 @@ const styles = (theme) => ({
   }
 });
 
-class MAdminPanelControls extends Component {
+class AdminPanelControls extends Component {
   state = {
     products: null,
     name: "",
@@ -191,4 +191,4 @@ class MAdminPanelControls extends Component {
   }
 }
 
-export default withStyles(styles)(MAdminPanelControls);
+export default withStyles(styles)(AdminPanelControls);
