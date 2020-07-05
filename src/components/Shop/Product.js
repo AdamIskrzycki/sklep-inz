@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MProduct = (props) => {
+const Product = (props) => {
   const classes = useStyles();
 
   return (
@@ -85,4 +85,4 @@ const mapDispatchToProps = dispatch => {
 }
 
 
-export default connect(null, mapDispatchToProps)(MProduct);
+export default connect(null, mapDispatchToProps)(Product);

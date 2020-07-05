@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import MAdminPanelControls from "./MAdminPanelControls";
-import MProdcutsInfo from "./MProductsInfo";
+import AdminPanelControls from "./AdminPanelControls";
+import ProdcutsInfo from "./ProductsInfo";
 import { db } from "../../firebase";
 import { Grid } from "@material-ui/core";
 
-class MAdminPanel extends Component {
+class AdminPanel extends Component {
   state = {
     products: null,
     product: undefined,
@@ -66,10 +66,10 @@ class MAdminPanel extends Component {
         <Grid container>
           <Grid item sm={false} md={1}></Grid>
           <Grid item sm={9} md={6} xs={11}>
-            <MProdcutsInfo products={this.state.products} delete={this.deleteProduct} edit={this.editProduct} />
+            <ProdcutsInfo products={this.state.products} delete={this.deleteProduct} edit={this.editProduct} />
           </Grid>
           <Grid item xs={11} md={5}>
-            <MAdminPanelControls add={this.addNewProduct} update={this.updateProduct} product={this.state.product} />
+            <AdminPanelControls add={this.addNewProduct} update={this.updateProduct} product={this.state.product} />
           </Grid>
         </Grid>
       </React.Fragment>
@@ -77,4 +77,4 @@ class MAdminPanel extends Component {
   }
 }
 
-export default MAdminPanel;
+export default AdminPanel;

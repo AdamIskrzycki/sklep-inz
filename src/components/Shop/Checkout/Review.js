@@ -4,10 +4,9 @@ import Typography from "@material-ui/core/Typography";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import Divider from '@material-ui/core/Divider';
 import { connect } from 'react-redux'
 
-import * as grouping from '../../../service/grouping';
+import { groupBy } from  '../../../utils';
 
 const useStyles = makeStyles((theme) => ({
   listItem: {
@@ -23,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Review = (props) => {
   const classes = useStyles();
-  const grouped = grouping.groupBy(props.cartProducts, "id").sort((a, b) => a.name.localeCompare(b.name));
+  const grouped = groupBy(props.cartProducts, "id").sort((a, b) => a.name.localeCompare(b.name));
   const totalPrice = props.cartProducts.reduce(
     (acc, product) => (product.discountedPrice ? acc + product.discountedPrice : acc + product.price),
     0

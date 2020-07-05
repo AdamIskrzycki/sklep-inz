@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import { db } from "../../firebase";
-import MProduct from "./MProduct";
-import MCart from "../MCart/MCart";
+import Product from "./Product";
+import Cart from "../Cart/Cart";
 import { Box, Grid } from "@material-ui/core";
 
 import { connect } from "react-redux";
@@ -29,7 +29,7 @@ const styles = (theme) => ({
   },
 });
 
-class MShop extends Component {
+class Shop extends Component {
   state = {
     products: null,
   };
@@ -70,7 +70,7 @@ class MShop extends Component {
               {this.state.products &&
                 this.state.products.map((product) => (
                   <Grid item key={this.props.id} xs={8} sm={5} md={isCartVisible ? 3 : 2}>
-                    <MProduct
+                    <Product
                       data={product}
                       display={this.displayPrice}
                       key={product.id}
@@ -82,7 +82,7 @@ class MShop extends Component {
             {isCartVisible && (
               <Grid item container xs={4}>
                 <Grid item xs={12}>
-                  <MCart
+                  <Cart
                     products={this.props.cartProducts}
                   />
                 </Grid>
@@ -102,4 +102,4 @@ const mapStateToProps = (state) => {
 };
 
 
-export default connect(mapStateToProps)(withStyles(styles)(MShop));
+export default connect(mapStateToProps)(withStyles(styles)(Shop));
