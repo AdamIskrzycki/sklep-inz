@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
-import  { getProducts } from '../../service/firebaseService';
+import { db } from "../../firebase";
 import Product from "./Product";
 import Cart from "../Cart/Cart";
 import { Box, Grid } from "@material-ui/core";
@@ -48,14 +48,16 @@ class Shop extends Component {
   };
 
   componentDidMount() {
-    getProducts().then((snapshot) => {
-      const updatedProducts = [];
-      snapshot.forEach((doc) => {
-        const data = doc.data();
-        updatedProducts.push({ ...data, id: doc.id });
+    db.collection("products")
+      .get()
+      .then((snapshot) => {
+        const updatedProducts = [];
+        snapshot.forEach((doc) => {
+          const data = doc.data();
+          updatedProducts.push({ ...data, id: doc.id });
+        });
+        this.setState({ products: updatedProducts });
       });
-       this.setState({ products: updatedProducts });
-    });;
   }
 
   render() {
