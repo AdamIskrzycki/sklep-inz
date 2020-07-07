@@ -7,6 +7,8 @@ import Footer from "./components/Footer";
 import Shop from "./components/Shop/Shop";
 import AdminPanel from "./components/AdminPanel/AdminPanel";
 import Checkout from './components/Shop/Checkout/Checkout';
+import SignIn from "./components/Auth/SignIn";
+import SignUp from "./components/Auth/SignUp";
 
 const App = () => {
   return (
@@ -19,6 +21,8 @@ const App = () => {
           <Route path="/shop" component={Shop} />
           <Route path="/admin" component={AdminPanel} />
           <Route path="/checkout" component={Checkout} />
+          <Route path='/signin' component={SignIn}/>
+          <Route path='/signup'component={SignUp} />
         </Switch>
       </main>
       <Footer />

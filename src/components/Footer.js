@@ -32,7 +32,7 @@ const Footer = () => {
         color="textSecondary"
         component="p"
       >
-        For any questions feel free to contact me!
+        For any questions feel free to contact us on onlineshop@gmail.com!
       </Typography>
       <Copyright />
     </footer>

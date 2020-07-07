@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
   discountedPrice: {
     fontSize: "30px",
-    color: "red",
+    color: 'salmon',
     marginLeft: "30px",
   },
   regularPrice: {
