@@ -4,13 +4,16 @@ import Toolbar from "@material-ui/core/Toolbar";
 import { makeStyles } from "@material-ui/core/styles";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import { Link } from "react-router-dom";
-import { Button, Typography} from "@material-ui/core";
+import { Button, Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   button: {
     marginLeft: "10px",
     borderLeft: "1px dotted white",
     fontWeight: "500",
+  },
+  auth: {
+    marginLeft: 'auto'
   },
   icon: {
     marginRight: theme.spacing(2),
@@ -35,6 +38,12 @@ export default function Header(props) {
         </Button>
         <Button className={classes.button} variant="text" color="inherit" component={Link} to={"/admin"}>
           Admin Panel
+        </Button>
+        <Button className={classes.auth} variant="text" color="inherit" component={Link} to={"/signin"}>
+          Sign In
+        </Button>
+        <Button className={classes.button} variant="text" color="inherit" component={Link} to={"/signup"}>
+          Sign Up
         </Button>
       </Toolbar>
     </AppBar>
