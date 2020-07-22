@@ -13,6 +13,7 @@ import Container from "@material-ui/core/Container";
 import { connect } from "react-redux";
 
 import { auth } from "../../store/actions";
+import { CircularProgress } from "@material-ui/core";
 
 const styles = (theme) => ({
   paper: {
@@ -100,10 +101,50 @@ class SignIn extends Component {
   submitHandler = (event) => {
     event.preventDefault();
     this.props.onAuth(this.state.controls.email.value, this.state.controls.password.value, false);
-  }
+  };
 
   render() {
     const { classes } = this.props;
+    let form = (
+      <form className={classes.form} onSubmit={this.submitHandler}>
+        <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          id="email"
+          label="Email Address"
+          name="email"
+          autoFocus
+          value={this.state.controls.email.value}
+          invalid={!this.state.controls.email.valid}
+          shouldvalidate={this.state.controls.email.validation}
+          touched={this.state.controls.email.touched}
+          onChange={(event) => this.inputChangedHandler(event, "email")}
+          color={!this.state.controls.email.valid && this.state.controls.email.touched ? "secondary" : "primary"}
+        />
+        <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          name="password"
+          label="Password"
+          type="password"
+          id="password"
+          value={this.state.controls.password.value}
+          invalid={!this.state.controls.password.valid}
+          shouldvalidate={this.state.controls.password.validation}
+          touched={this.state.controls.password.touched}
+          onChange={(event) => this.inputChangedHandler(event, "password")}
+          color={!this.state.controls.password.valid && this.state.controls.password.touched ? "secondary" : "primary"}
+        />
+      </form>
+    );
+
+    if (this.props.loading) {
+      form = <CircularProgress />;
+    }
 
     return (
       <Container component="main" maxWidth="xs">
@@ -115,53 +156,17 @@ class SignIn extends Component {
           <Typography component="h1" variant="h5">
             Sign Up
           </Typography>
-          <form className={classes.form} onSubmit={this.submitHandler}>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoFocus
-              value={this.state.controls.email.value}
-              invalid={!this.state.controls.email.valid}
-              shouldvalidate={this.state.controls.email.validation}
-              touched={this.state.controls.email.touched}
-              onChange={(event) => this.inputChangedHandler(event, "email")}
-              color={!this.state.controls.email.valid && this.state.controls.email.touched ? "secondary" : "primary"}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              value={this.state.controls.password.value}
-              invalid={!this.state.controls.password.valid}
-              shouldvalidate={this.state.controls.password.validation}
-              touched={this.state.controls.password.touched}
-              onChange={(event) => this.inputChangedHandler(event, "password")}
-              color={
-                !this.state.controls.password.valid && this.state.controls.password.touched ? "secondary" : "primary"
-              }
-            />
-
-            <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
-              Sign Up
-            </Button>
-            <Grid container justify="flex-end">
-              <Grid item>
-                <Link href="/signup" variant="body2">
-                  {"Already have an account? Sign In"}
-                </Link>
-              </Grid>
+          {form}
+          <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
+            Sign Up
+          </Button>
+          <Grid container justify="flex-end">
+            <Grid item>
+              <Link href="/signup" variant="body2">
+                {"Already have an account? Sign In"}
+              </Link>
             </Grid>
-          </form>
+          </Grid>
         </div>
         <Box mt={8}></Box>
       </Container>
@@ -169,10 +174,16 @@ class SignIn extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    loading: state.loading,
+  };
+};
+
 const mapDispatchToProps = (dispatch) => {
   return {
     onAuth: (email, password) => dispatch(auth(email, password)),
   };
 };
 
-export default connect(null, mapDispatchToProps)(withStyles(styles)(SignIn));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(SignIn));
