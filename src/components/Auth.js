@@ -3,6 +3,7 @@ import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { Redirect } from 'react-router-dom';
 
 import { logout } from "../store/actions";
 
@@ -20,7 +21,7 @@ const styles = (theme) => ({
 class Auth extends Component {
   render() {
     const { classes } = this.props;
-
+    
     let nav = (
       <div className={classes.auth}>
         <Button variant="text" color="inherit" component={Link} to={"/signin"}>
@@ -33,13 +34,17 @@ class Auth extends Component {
     );
 
     if (this.props.isAuthenticated) {
+      
       nav = (
+        <>
         <Button className={classes.auth} variant="text" color="inherit" component={Link} to={"/"} onClick={this.props.onLogout}>
           Logout
         </Button>
+        <Redirect to="/"/>
+        </>
       );
     }
-
+      
     return nav;
   }
 }

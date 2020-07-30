@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 
 import * as actionCreators from "../../store/actions";
 import { connect } from "react-redux";
-import { groupBy } from '../../utils';
+import { groupBy } from "../../utils";
 
 const styles = (theme) => ({
   root: {
@@ -51,8 +51,6 @@ const styles = (theme) => ({
   },
 });
 
-
-
 class Cart extends Component {
   render() {
     const { classes } = this.props;
@@ -86,7 +84,10 @@ class Cart extends Component {
                 }
               />
               <Tooltip title="Delete">
-                <DeleteIcon className={classes.icon} onClick={() => this.props.onRemoveAllProducts(product.id)}></DeleteIcon>
+                <DeleteIcon
+                  className={classes.icon}
+                  onClick={() => this.props.onRemoveAllProducts(product.id)}
+                ></DeleteIcon>
               </Tooltip>
             </ListItem>
           ))}
@@ -97,26 +98,35 @@ class Cart extends Component {
         <Typography variant="h5" className={classes.totalAmount}>
           {this.props.products ? "Total amount of products: " + this.props.products.length : "Your cart is cleared"}
         </Typography>
-        <Button
-          component={Link}
-          to={"/checkout"}
-          variant="contained"
-          color="primary"
-          className={classes.checkoutButton}
-        >
-          Checkout
-        </Button>
+        <Tooltip arrow title="Sign in to checkout" open={this.props.isAuthenticated ? false : true}>
+          <Button
+            component={Link}
+            to={"/checkout"}
+            variant="contained"
+            color="primary"
+            className={classes.checkoutButton}
+            disabled={this.props.isAuthenticated ? false : true}
+          >
+            Checkout
+          </Button>
+        </Tooltip>
       </>
     );
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticated: state.idToken !== null,
+  };
+};
+
 const mapDispatchToProps = (dispatch) => {
   return {
     onAddProduct: (product) => dispatch(actionCreators.add(product)),
     onRemoveProduct: (id) => dispatch(actionCreators.removeOne(id)),
-    onRemoveAllProducts: (id) => dispatch(actionCreators.removeAll(id))
-  }
+    onRemoveAllProducts: (id) => dispatch(actionCreators.removeAll(id)),
+  };
 };
 
-export default connect(null, mapDispatchToProps)(withStyles(styles)(Cart));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Cart));
