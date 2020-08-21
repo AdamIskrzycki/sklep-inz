@@ -11,6 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { connect } from "react-redux";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 import { auth } from "../../store/actions";
 
@@ -50,7 +51,6 @@ class SignIn extends Component {
     },
   };
 
-
   inputChangedHandler = (event, controlName) => {
     const updatedControls = {
       ...this.state.controls,
@@ -65,10 +65,53 @@ class SignIn extends Component {
   submitHandler = (event) => {
     event.preventDefault();
     this.props.onAuth(this.state.controls.email.value, this.state.controls.password.value, true);
-  }
+  };
 
   render() {
     const { classes } = this.props;
+    let form = (
+      <form className={classes.form} onSubmit={this.submitHandler}>
+        <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          id="email"
+          label="Email Address"
+          name="email"
+          autoFocus
+          value={this.state.controls.email.value}
+          onChange={(event) => this.inputChangedHandler(event, "email")}
+        />
+        <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          name="password"
+          label="Password"
+          type="password"
+          id="password"
+          value={this.state.controls.password.value}
+          onChange={(event) => this.inputChangedHandler(event, "password")}
+        />
+
+        <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
+          Sign In
+        </Button>
+        <Grid container justify="flex-end">
+          <Grid item>
+            <Link href="/signup" variant="body2">
+              {"Don't have an account? Sign Up"}
+            </Link>
+          </Grid>
+        </Grid>
+      </form>
+    );
+
+    if(this.props.loading) {
+      form = <CircularProgress />
+    }
 
     return (
       <Container component="main" maxWidth="xs">
@@ -80,43 +123,7 @@ class SignIn extends Component {
           <Typography component="h1" variant="h5">
             Sign In
           </Typography>
-          <form className={classes.form} onSubmit={this.submitHandler}>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoFocus
-              value={this.state.controls.email.value}
-              onChange={(event) => this.inputChangedHandler(event, "email")}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              value={this.state.controls.password.value}
-              onChange={(event) => this.inputChangedHandler(event, "password")}
-            />
-
-            <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
-              Sign In
-            </Button>
-            <Grid container justify="flex-end">
-              <Grid item>
-                <Link href="/signup" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
-          </form>
+          {form}
         </div>
         <Box mt={8}></Box>
       </Container>
@@ -124,10 +131,16 @@ class SignIn extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    loading: state.loading,
+  };
+};
+
 const mapDispatchToProps = (dispatch) => {
   return {
     onAuth: (email, password, isSignedUp) => dispatch(auth(email, password, isSignedUp)),
   };
 };
 
-export default connect(null, mapDispatchToProps)(withStyles(styles)(SignIn));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(SignIn));
