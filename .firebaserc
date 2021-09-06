@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "online-shop"
-  }
+    "default": "shop",
+    "shop": "shop-308e8"
+  },
+  "targets": {}
 }
