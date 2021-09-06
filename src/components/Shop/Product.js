@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import * as actionCreators from '../../store/actions';
 import { connect } from 'react-redux';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   product: {
     display: "flex",
     flexDirection: "column",

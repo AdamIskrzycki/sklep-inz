@@ -11,7 +11,7 @@ import * as actionCreators from "../../store/actions";
 import { connect } from "react-redux";
 import { groupBy } from "../../utils";
 
-const styles = (theme) => ({
+const styles = () => ({
   root: {
     flexGrow: 1,
     maxWidth: 752,
