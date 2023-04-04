@@ -31,19 +31,19 @@ const Review = (props) => {
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
-        Order summary
+        Podsumowanie zamówienia
       </Typography>
       <List disablePadding>
         {grouped.map((product) => (
           <ListItem className={classes.listItem} key={product.name}>
             <ListItemText primary={product.name} secondary={'x' + product.count} />
-            <Typography variant="body2">{'$' + (product.discountedPrice ? product.discountedPrice : product.price)}</Typography>
+            <Typography variant="body2">{(product.discountedPrice ? product.discountedPrice : product.price) + "zł"}</Typography>
           </ListItem>
         ))}
         <ListItem className={classes.listItem}>
-          <ListItemText primary="Total Price" />
+          <ListItemText primary="Do zapłaty" />
           <Typography variant="subtitle1" className={classes.total}>
-            {'$' + totalPrice}
+            {totalPrice + "zł"}
           </Typography>
         </ListItem>
       </List>

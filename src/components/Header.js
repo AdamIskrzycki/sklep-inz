@@ -26,16 +26,16 @@ export default function Header(props) {
       <Toolbar>
         <ShoppingBasketIcon className={classes.icon} />
         <Typography variant="h6" color="inherit" noWrap>
-          Online Shop
+          Sklep internetowy
         </Typography>
         <Button className={classes.button} variant="text" color="inherit" component={Link} to={"/"}>
-          Home
+          Strona główna
         </Button>
         <Button className={classes.button} variant="text" color="inherit" component={Link} to={"/shop"}>
-          Shop
+          Sklep
         </Button>
         <Button className={classes.button} variant="text" color="inherit" component={Link} to={"/admin"}>
-          Admin Panel
+          Panel Admina
         </Button>
         <Auth />
       </Toolbar>

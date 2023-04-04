@@ -66,24 +66,24 @@ class Cart extends Component {
         <List className={classes.list}>
           {grouped.map((product) => (
             <ListItem alignItems="center">
-              <Tooltip title="More">
+              <Tooltip title="Więcej">
                 <AddIcon className={classes.icon} onClick={() => this.props.onAddProduct(product)} />
               </Tooltip>
-              <Tooltip title="Less">
+              <Tooltip title="Mniej">
                 <RemoveIcon className={classes.icon} onClick={() => this.props.onRemoveProduct(product.id)} />
               </Tooltip>
               <ListItemText
                 primary={
                   <Typography className={classes.cartProduct}>
                     {product.name +
-                      " | $" +
+                      " | " +
                       (product.discountedPrice ? product.discountedPrice : product.price) +
-                      " | x" +
+                      "zł | x" +
                       product.count}
                   </Typography>
                 }
               />
-              <Tooltip title="Delete">
+              <Tooltip title="Usuń">
                 <DeleteIcon
                   className={classes.icon}
                   onClick={() => this.props.onRemoveAllProducts(product.id)}
@@ -93,12 +93,12 @@ class Cart extends Component {
           ))}
         </List>
         <Typography variant="h5" className={classes.totalPrice}>
-          Total Price: {"$" + totalPrice}
+          Do zapłaty: {totalPrice + "zł"}
         </Typography>
         <Typography variant="h5" className={classes.totalAmount}>
-          {this.props.products ? "Total amount of products: " + this.props.products.length : "Your cart is cleared"}
+          {this.props.products ? "Ilośc produktów w koszyku: " + this.props.products.length : "Twój koszyk jest pusty"}
         </Typography>
-        <Tooltip arrow title="Sign in to checkout" open={this.props.isAuthenticated ? false : true}>
+        <Tooltip arrow title="Zaloguj się by złożyć zamówienie" open={this.props.isAuthenticated ? false : true}>
           <Button
             component={Link}
             to={"/checkout"}
@@ -107,7 +107,7 @@ class Cart extends Component {
             className={classes.checkoutButton}
             disabled={this.props.isAuthenticated ? false : true}
           >
-            Checkout
+            Zamów
           </Button>
         </Tooltip>
       </>

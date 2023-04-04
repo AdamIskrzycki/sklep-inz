@@ -28,16 +28,16 @@ const ProductsInfo = (props) => {
   return (
     <Box mt={10} ml={10}>
       <Typography variant="h5" align="center" color="textSecondary" paragraphvariant="h5" paragraph>
-        Current Stock
+        Dostępne produkty
       </Typography>
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>Product</TableCell>
-              <TableCell align="center">Price ($) </TableCell>
-              <TableCell align="center">Discounted Price ($)</TableCell>
-              <TableCell align="center">Actions</TableCell>
+              <TableCell>Produkt</TableCell>
+              <TableCell align="center">Cena (zł) </TableCell>
+              <TableCell align="center">Cena po obniżce (zł)</TableCell>
+              <TableCell align="center">Akcje</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -50,10 +50,10 @@ const ProductsInfo = (props) => {
                   <TableCell align="center">{product.price}</TableCell>
                   <TableCell align="center">{product.discountedPrice ? product.discountedPrice : " - "}</TableCell>
                   <TableCell align="center">
-                    <Tooltip title="Delete">
+                    <Tooltip title="Usuń">
                       <DeleteIcon onClick={() => props.delete(product.id)} className={classes.icon} />
                     </Tooltip>
-                    <Tooltip title="Edit">
+                    <Tooltip title="Edytuj">
                       <EditIcon
                         onClick={() => props.edit(product)}
                         className={classes.icon}

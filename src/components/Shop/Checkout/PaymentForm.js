@@ -7,24 +7,24 @@ export default function PaymentForm() {
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
-        Payment method
+        Płatność
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
-          <TextField required id="cardName" label="Name on card" fullWidth autoComplete="cc-name" />
+          <TextField required id="cardName" label="Imię" fullWidth autoComplete="cc-name" />
         </Grid>
         <Grid item xs={12} md={6}>
-          <TextField required id="cardNumber" label="Card number" fullWidth autoComplete="cc-number" />
+          <TextField required id="cardNumber" label="Numer karty" fullWidth autoComplete="cc-number" />
         </Grid>
         <Grid item xs={12} md={6}>
-          <TextField required id="expDate" label="Expiry date" fullWidth autoComplete="cc-exp" />
+          <TextField required id="expDate" label="Data wygaśnięcia karty" fullWidth autoComplete="cc-exp" />
         </Grid>
         <Grid item xs={12} md={6}>
           <TextField
             required
             id="cvv"
             label="CVV"
-            helperText="Last three digits on signature strip"
+            helperText="3 cyfry na odwrocie karty"
             fullWidth
             autoComplete="cc-csc"
           />

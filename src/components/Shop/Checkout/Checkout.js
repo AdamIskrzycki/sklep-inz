@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const steps = ["Shipping address", "Payment details", "Review your order"];
+const steps = ["Adres dostawy", "Płatność", "Podsumowanie zamówienia"];
 
 function getStepContent(step) {
   switch (step) {
@@ -51,7 +51,7 @@ function getStepContent(step) {
     case 2:
       return <Review />;
     default:
-      throw new Error("Unknown step");
+      throw new Error("Nieprawidłowy krok");
   }
 }
 
@@ -73,7 +73,7 @@ export default function Checkout() {
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">
-            Checkout
+            Zamówienie
           </Typography>
           <Stepper activeStep={activeStep} className={classes.stepper}>
             {steps.map((label) => (
@@ -86,11 +86,11 @@ export default function Checkout() {
             {activeStep === steps.length ? (
               <React.Fragment>
                 <Typography variant="h5" gutterBottom>
-                  Thank you for your order.
+                  Dziękujemy za Twoje zamówienie!
                 </Typography>
                 <Typography variant="subtitle1">
-                  Your order is being processed and will be shipped to you in 2-5 days, for more information please
-                  contact us on onlineshop@gmail.com.
+                  Twoje zamówienie zostało prawidłowo zarejestrowane, a szczegółowe podsumowanie zamówienia oraz dodatkowe informacje zostaną przesłane
+                  na adres e-mail podany przy finalizowaniu zamówienia. <br></br>W razie jakichkolwiek pytań, proszę o kontakt drogą mailową na adres: onlineshop@gmail.com.
                 </Typography>
               </React.Fragment>
             ) : (
@@ -99,11 +99,11 @@ export default function Checkout() {
                 <div className={classes.buttons}>
                   {activeStep !== 0 && (
                     <Button onClick={handleBack} className={classes.button}>
-                      Back
+                      Wróć
                     </Button>
                   )}
                   <Button variant="contained" color="primary" onClick={handleNext} className={classes.button}>
-                    {activeStep === steps.length - 1 ? "Place order" : "Next"}
+                    {activeStep === steps.length - 1 ? "Złóż zamówienie" : "Dalej"}
                   </Button>
                 </div>
               </React.Fragment>

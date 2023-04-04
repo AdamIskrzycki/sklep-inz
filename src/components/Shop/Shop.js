@@ -40,11 +40,11 @@ class Shop extends Component {
     if (discountedPrice) {
       return (
         <>
-          <span className={classes.regularPriceCrossed}>{"$" + price}</span>
-          <span className={classes.discountedPrice}>{"only $" + discountedPrice}</span>
+          <span className={classes.regularPriceCrossed}>{price + "zł"}</span>
+          <span className={classes.discountedPrice}>{discountedPrice + "zł"}</span>
         </>
       );
-    } else return <span className={classes.regularPrice}>{"$" + price}</span>;
+    } else return <span className={classes.regularPrice}>{price + "zł"}</span>;
   };
 
   componentDidMount() {

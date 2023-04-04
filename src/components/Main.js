@@ -23,22 +23,23 @@ class Main extends Component {
       <div className={classes.heroContent}>
         <Container maxWidth="sm">
           <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-            Welcome to my online shop!
+            Witaj w sklepie internetowym!
           </Typography>
           <Typography variant="h5" align="center" color="textSecondary" paragraph>
-            Click the buttons below to determine whether you would like to start shopping or manipulate the products in
-            the shop via the admin panel.
+            
+            Poniższe przyciski pozwolą na skorzystanie ze sklepu internetowego, oraz, w przypadku dostępu do konta admina, na 
+            manipulację dostępnymi produktami w panelu admina.
           </Typography>
           <div className={classes.heroButtons}>
             <Grid container spacing={2} justify="center">
               <Grid item>
                 <Button variant="contained" color="primary" component={Link} to={"/shop"}>
-                  Go Shopping
+                  Przejdź do sklepu
                 </Button>
               </Grid>
               <Grid item>
                 <Button variant="outlined" color="primary" component={Link} to={"/admin"}>
-                  Admin Panel
+                  Przejdź do panelu admina
                 </Button>
               </Grid>
             </Grid>

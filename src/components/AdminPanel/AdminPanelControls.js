@@ -134,14 +134,14 @@ class AdminPanelControls extends Component {
       <React.Fragment>
         <Container maxWidth="sm" className={classes.container}>
           <Typography variant="h5" align="center" color="textSecondary" paragraphvariant="h5" paragraph>
-            Please specify the properties below in order to add a new product to the stock.
+            Określ poniższe własności produktu, aby dodać go do sklepu
           </Typography>
           <TextField
             value={this.state.name}
             onChange={this.onInputChange}
             name="name"
             id="focus"
-            label="Name"
+            label="Nazwa"
             variant="outlined"
             className={classes.textField}
             autoFocus
@@ -152,7 +152,7 @@ class AdminPanelControls extends Component {
             onChange={this.onInputChange}
             name="price"
             type="number"
-            label="Price"
+            label="Cena"
             variant="outlined"
             className={classes.textField}
           />
@@ -162,14 +162,14 @@ class AdminPanelControls extends Component {
             onChange={this.onInputChange}
             name="discountedPrice"
             type="number"
-            label="Discounted Price"
+            label="Cena po obniżce"
             variant="outlined"
             className={classes.textField}
           />
           <Box className={classes.box}>
             <Typography variant="h6" color="textSecondary" className={classes.fileInput}>
               <label for="imageUpload" className={classes.inputLabel}>
-                Upload Product Image
+                Załącz zdjęcie produktu
               </label>
               <input id="imageUpload" type="file" onChange={this.handleImageAsFile} accept=".jpg, .jpeg, .png"></input>
             </Typography>
@@ -180,7 +180,7 @@ class AdminPanelControls extends Component {
               className={classes.addButton}
               onClick={this.onButtonClick}
             >
-              {this.state.isInEditMode ? "Save" : "Add"}
+              {this.state.isInEditMode ? "Zapisz" : "Dodaj"}
             </Button>
             <img src={this.state.imageUrl} className={classes.image} alt=""></img>
             <CloseIcon onClick={this.setPlaceholderImage} className={classes.close} visibility={this.state.imageUrl === '' ? 'hidden' : 'visible'}/>

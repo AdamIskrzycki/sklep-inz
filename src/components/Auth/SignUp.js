@@ -113,7 +113,7 @@ class SignIn extends Component {
           required
           fullWidth
           id="email"
-          label="Email Address"
+          label="Adres e-mail"
           name="email"
           autoFocus
           value={this.state.controls.email.value}
@@ -129,7 +129,7 @@ class SignIn extends Component {
           required
           fullWidth
           name="password"
-          label="Password"
+          label="Hasło"
           type="password"
           id="password"
           value={this.state.controls.password.value}
@@ -154,16 +154,16 @@ class SignIn extends Component {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign Up
+            Zarejestruj się
           </Typography>
           {form}
           <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
-            Sign Up
+          Zarejestruj się
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="/signup" variant="body2">
-                {"Already have an account? Sign In"}
+              <Link href="/signin" variant="body2">
+                {"Masz już konto? Zaloguj się!"}
               </Link>
             </Grid>
           </Grid>
