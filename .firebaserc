@@ -1,7 +1,5 @@
 {
   "projects": {
-    "default": "shop",
-    "shop": "shop-308e8"
-  },
-  "targets": {}
+    "default": "sklep-inz"
+  }
 }
