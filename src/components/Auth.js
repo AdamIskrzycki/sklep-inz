@@ -3,7 +3,6 @@ import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { Redirect } from 'react-router-dom';
 
 import { logout } from "../store/actions";
 
@@ -40,7 +39,6 @@ class Auth extends Component {
         <Button className={classes.auth} variant="text" color="inherit" component={Link} to={"/"} onClick={this.props.onLogout}>
           Wyloguj
         </Button>
-        <Redirect to="/"/>
         </>
       );
     }

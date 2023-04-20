@@ -4,7 +4,7 @@ import "firebase/auth";
 import "firebase/storage"
 
 var firebaseConfig = {
-  //apiKey: "AIzaSyBicaRbaMp_gYwIGj5eB9nwyeXGZbDCZsw",
+  apiKey: "AIzaSyDFks6hXNYoeRYisY1o0DP4jm4ikuhb27g",
   authDomain: "sklep-inz.firebaseapp.com",
   databaseURL: "https://sklep-inz.firebaseio.com",
   projectId: "sklep-inz",

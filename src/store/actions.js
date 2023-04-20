@@ -64,10 +64,10 @@ export const auth = (email, password, isSignedUp) => {
 
     let url = "";
     if (!isSignedUp) {
-      url = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBicaRbaMp_gYwIGj5eB9nwyeXGZbDCZsw";
+      url = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDFks6hXNYoeRYisY1o0DP4jm4ikuhb27g";
     } else
       url =
-        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBicaRbaMp_gYwIGj5eB9nwyeXGZbDCZsw";
+        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDFks6hXNYoeRYisY1o0DP4jm4ikuhb27g";
 
     axios
       .post(url, authData)
@@ -78,10 +78,12 @@ export const auth = (email, password, isSignedUp) => {
         localStorage.setItem("userId", response.data.localId);
         dispatch(authSuccess(response.data.idToken, response.data.localId));
         dispatch(checkAuthTimeout(response.data.expiresIn));
+        window.location.href = "/";
       })
       .catch((err) => {
         dispatch(authFail(err));
       });
+
   };
 };
 

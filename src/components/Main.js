@@ -38,7 +38,7 @@ class Main extends Component {
                 </Button>
               </Grid>
               <Grid item>
-                <Button variant="outlined" color="primary" component={Link} to={"/admin"}>
+                <Button variant="outlined" color="primary" component={Link} to={"/admin"} disabled={localStorage.getItem("userId") !== "43PfXhmZ3aSah3Q32cB0A99vbiH2"}>
                   Przejdź do panelu admina
                 </Button>
               </Grid>

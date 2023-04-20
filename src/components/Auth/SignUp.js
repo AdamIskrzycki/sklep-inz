@@ -61,6 +61,7 @@ class SignIn extends Component {
         touched: false,
       },
     },
+    submitClicked: false
   };
 
   checkValidity(value, rules) {
@@ -101,6 +102,7 @@ class SignIn extends Component {
   submitHandler = (event) => {
     event.preventDefault();
     this.props.onAuth(this.state.controls.email.value, this.state.controls.password.value, false);
+    
   };
 
   render() {
@@ -139,6 +141,10 @@ class SignIn extends Component {
           onChange={(event) => this.inputChangedHandler(event, "password")}
           color={!this.state.controls.password.valid && this.state.controls.password.touched ? "secondary" : "primary"}
         />
+        <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
+          Zarejestruj się
+        </Button>
+        
       </form>
     );
 
@@ -157,9 +163,6 @@ class SignIn extends Component {
             Zarejestruj się
           </Typography>
           {form}
-          <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
-          Zarejestruj się
-          </Button>
           <Grid container justify="flex-end">
             <Grid item>
               <Link href="/signin" variant="body2">
