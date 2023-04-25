@@ -13,6 +13,11 @@ const styles = (theme) => ({
   heroButtons: {
     marginTop: theme.spacing(4),
   },
+  welcome: {
+    '@media (max-width: 400px)': {
+      fontSize: '50px'
+    }
+  }
 });
 
 class Main extends Component {
@@ -22,7 +27,7 @@ class Main extends Component {
     return (
       <div className={classes.heroContent}>
         <Container maxWidth="sm">
-          <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+          <Typography className={classes.welcome}component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
             Witaj w sklepie internetowym!
           </Typography>
           <Typography variant="h5" align="center" color="textSecondary" paragraph>

@@ -8,7 +8,12 @@ import { connect } from 'react-redux';
 const useStyles = makeStyles(() => ({
   product: {
     display: "flex",
+    width: '300px',
+    margin: '0 20px',
     flexDirection: "column",
+    '@media (max-width: 1200px)': {
+      margin: '20px',
+    }
   },
   productMedia: {
     paddingTop: "56.25%",
@@ -18,18 +23,18 @@ const useStyles = makeStyles(() => ({
     textAlign: "center",
   },
   regularPriceCrossed: {
-    fontSize: "30px",
+    fontSize: "26px",
     fontWeight: "500",
     textDecoration: "line-through",
     color: "grey",
   },
   discountedPrice: {
-    fontSize: "30px",
+    fontSize: "26px",
     color: 'salmon',
     marginLeft: "30px",
   },
   regularPrice: {
-    fontSize: "30px",
+    fontSize: "26px",
   },
   buyButton: {
     marginLeft: "auto",
@@ -65,7 +70,7 @@ const Product = (props) => {
       <CardActions>
         <Button
           className={classes.buyButton}
-          variant="text"
+          variant="outlined"
           size="medium"
           color="primary"
           align="center"

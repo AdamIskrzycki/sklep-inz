@@ -3,11 +3,34 @@ import { withStyles } from "@material-ui/core/styles";
 import { db } from "../../firebase";
 import Product from "./Product";
 import Cart from "../Cart/Cart";
-import { Box, Grid } from "@material-ui/core";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import { Dialog, DialogContent, DialogTitle } from "@material-ui/core";
 
 import { connect } from "react-redux";
 
 const styles = (theme) => ({
+  shopContainer: {
+    margin: "40px",
+    paddingLeft: "20px",
+  },
+  cartIcon: {
+    position: "fixed",
+    fontSize: "90px",
+    top: '60px',
+    "@media (max-width: 380px)": {
+      top: '80px',
+    },
+    padding: '16px',
+    cursor: "pointer",
+  },
+  productsContainer: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    "@media (max-width: 1200px)": {
+      flexWrap: "wrap",
+    },
+  },
   cardGrid: {
     paddingTop: theme.spacing(8),
     paddingBottom: theme.spacing(8),
@@ -32,6 +55,11 @@ const styles = (theme) => ({
 class Shop extends Component {
   state = {
     products: null,
+    isCartOpen: false,
+  };
+
+  toggleOpenCart = () => {
+      this.setState({ isCartOpen: !this.state.isCartOpen });
   };
 
   displayPrice = (price, discountedPrice) => {
@@ -64,32 +92,32 @@ class Shop extends Component {
     const isCartVisible = this.props.cartProducts.length > 0;
     return (
       <React.Fragment>
-        <Box mt={5} ml={5}>
-          <Grid container spacing={2} xs={12} alignContent="center">
-            <Grid item container spacing={2} xs={isCartVisible ? 8 : 12}>
-              {this.state.products &&
-                this.state.products.map((product) => (
-                  <Grid item key={this.props.id} xs={8} sm={5} md={isCartVisible ? 3 : 2}>
-                    <Product
-                      data={product}
-                      display={this.displayPrice}
-                      key={product.id}
-                      onBuy={this.props.onAddProduct}
-                    />
-                  </Grid>
-                ))}
-            </Grid>
-            {isCartVisible && (
-              <Grid item container xs={4}>
-                <Grid item xs={12}>
-                  <Cart
-                    products={this.props.cartProducts}
-                  />
-                </Grid>
-              </Grid>
-            )}
-          </Grid>
-        </Box>
+        {isCartVisible && (
+          <ShoppingCartIcon
+            className={this.props.classes.cartIcon}
+            onClick={this.toggleOpenCart}
+          />
+        )}
+        <div className={this.props.classes.shopContainer}>
+          <div className={this.props.classes.productsContainer}>
+            {this.state.products &&
+              this.state.products.map((product) => (
+                <Product data={product} display={this.displayPrice} key={product.id} onBuy={this.props.onAddProduct} />
+              ))}
+          </div>
+          {
+            <Dialog
+              onClose={this.toggleOpenCart}
+              aria-labelledby="customized-dialog-title"
+              open={this.state.isCartOpen}
+            >
+              <DialogTitle align='center'>{this.props.cartProducts.length > 0 ? "Twój koszyk" : "Twój koszyk jest pusty"}</DialogTitle>
+              <DialogContent dividers>
+                <Cart products={this.props.cartProducts} clicked={this.toggleOpenCart}/>
+              </DialogContent>
+            </Dialog>
+          }
+        </div>
       </React.Fragment>
     );
   }
@@ -100,6 +128,5 @@ const mapStateToProps = (state) => {
     cartProducts: state.cartProducts,
   };
 };
-
 
 export default connect(mapStateToProps)(withStyles(styles)(Shop));

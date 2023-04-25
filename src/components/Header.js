@@ -13,9 +13,17 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "10px",
     borderLeft: "1px dotted white",
     fontWeight: "500",
+    '@media (max-width: 770px)': {
+      fontSize: '12px'
+    }
   },
   icon: {
     marginRight: theme.spacing(2),
+  },
+  shop: {
+    '@media (max-width: 770px)': {
+      display: 'none'
+    }
   },
 }));
 
@@ -23,10 +31,10 @@ const Header = (props) => {
   const classes = useStyles();
 
   return (
-    <AppBar position="relative">
+    <AppBar position="sticky">
       <Toolbar>
         <ShoppingBasketIcon className={classes.icon} />
-        <Typography variant="h6" color="inherit" noWrap>
+        <Typography variant="h6" color="inherit" noWrap className={classes.shop}>
           Sklep internetowy
         </Typography>
         <Button className={classes.button} variant="text" color="inherit" component={Link} to={"/"}>

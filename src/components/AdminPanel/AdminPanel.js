@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import AdminPanelControls from "./AdminPanelControls";
-import ProdcutsInfo from "./ProductsInfo";
+import ProductsInfo from "./ProductsInfo";
 import { db } from "../../firebase";
-import { Grid } from "@material-ui/core";
+import classes from './AdminPanel.module.css';
 
 class AdminPanel extends Component {
   state = {
@@ -15,8 +15,8 @@ class AdminPanel extends Component {
       .add({
         name: name,
         price: +price,
-        discountedPrice: discountedPrice === '' ? null : +discountedPrice,
-        image: image
+        discountedPrice: discountedPrice === "" ? null : +discountedPrice,
+        image: image,
       })
       .then(this.getProducts);
   };
@@ -49,11 +49,11 @@ class AdminPanel extends Component {
       .set({
         name: name,
         price: +price,
-        discountedPrice: discountedPrice === '' ? null : +discountedPrice,
-        image: image
+        discountedPrice: discountedPrice === "" ? null : +discountedPrice,
+        image: image,
       })
       .then(this.getProducts);
-      this.setState({product: undefined});
+    this.setState({ product: undefined });
   };
 
   componentDidMount = () => {
@@ -63,15 +63,14 @@ class AdminPanel extends Component {
   render() {
     return (
       <React.Fragment>
-        <Grid container>
-          <Grid item sm={false} md={1}></Grid>
-          <Grid item sm={9} md={6} xs={11}>
-            <ProdcutsInfo products={this.state.products} delete={this.deleteProduct} edit={this.editProduct} />
-          </Grid>
-          <Grid item xs={11} md={5}>
-            <AdminPanelControls add={this.addNewProduct} update={this.updateProduct} product={this.state.product} />
-          </Grid>
-        </Grid>
+        <div className={classes.container}>
+          <div className={classes.productsInfo}>
+          <ProductsInfo products={this.state.products} delete={this.deleteProduct} edit={this.editProduct} />
+          </div>
+          <div className={classes.controls}>
+          <AdminPanelControls add={this.addNewProduct} update={this.updateProduct} product={this.state.product} />
+          </div>
+        </div>
       </React.Fragment>
     );
   }

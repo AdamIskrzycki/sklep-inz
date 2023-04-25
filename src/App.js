@@ -3,7 +3,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import { Switch, Route, BrowserRouter, Redirect } from "react-router-dom";
 import Main from "./components/Main";
 import Header from "./components/Header";
-import Footer from "./components/Footer";
+// import Footer from "./components/Footer";
 import Shop from "./components/Shop/Shop";
 import AdminPanel from "./components/AdminPanel/AdminPanel";
 import Checkout from "./components/Shop/Checkout/Checkout";
@@ -48,7 +48,7 @@ class App extends Component {
         <CssBaseline />
         <Header />
         <main>{routes}</main>
-        <Footer />
+        {/* <Footer /> */}
       </BrowserRouter>
     );
   }

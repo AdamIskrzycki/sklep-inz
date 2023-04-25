@@ -4,9 +4,9 @@ import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   footer: {
-    padding: theme.spacing(6)
-  }
-}));
+    padding: theme.spacing(6),
+    }
+  }));
 
 function Copyright() {
   return (

@@ -11,9 +11,12 @@ const styles = (theme) => ({
     marginTop: theme.spacing(2),
     width: "15%",
   },
-  container: {
-    marginTop: theme.spacing(25),
-  },
+  // container: {
+  //   marginTop: theme.spacing(25),
+  //   '@media (max-width: 1000px)': {
+  //     marginTop: 'none'
+  //   }
+  // },
 
   textField: {
     width: "30%",
@@ -132,7 +135,7 @@ class AdminPanelControls extends Component {
 
     return (
       <React.Fragment>
-        <Container maxWidth="sm" className={classes.container}>
+        <Container className={classes.container}>
           <Typography variant="h5" align="center" color="textSecondary" paragraphvariant="h5" paragraph>
             Określ poniższe własności produktu, aby dodać go do sklepu
           </Typography>

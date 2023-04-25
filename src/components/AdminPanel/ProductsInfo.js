@@ -26,7 +26,7 @@ const ProductsInfo = (props) => {
   const classes = useStyles();
 
   return (
-    <Box mt={10} ml={10}>
+    <Box>
       <Typography variant="h5" align="center" color="textSecondary" paragraphvariant="h5" paragraph>
         Dostępne produkty
       </Typography>

@@ -11,6 +11,9 @@ const styles = (theme) => ({
     marginLeft: "10px",
     borderLeft: "1px dotted white",
     fontWeight: "500",
+    '@media (max-width: 770px)': {
+      fontSize: '12px'
+    }
   },
   auth: {
     marginLeft: "auto",
@@ -23,7 +26,7 @@ class Auth extends Component {
     
     let nav = (
       <div className={classes.auth}>
-        <Button variant="text" color="inherit" component={Link} to={"/signin"}>
+        <Button className={classes.button} variant="text" color="inherit" component={Link} to={"/signin"}>
           Zaloguj się
         </Button>
         <Button className={classes.button} variant="text" color="inherit" component={Link} to={"/signup"}>
@@ -36,9 +39,11 @@ class Auth extends Component {
       
       nav = (
         <>
-        <Button className={classes.auth} variant="text" color="inherit" component={Link} to={"/"} onClick={this.props.onLogout}>
+        <div className={classes.auth}>
+        <Button className={classes.button} variant="text" color="inherit" component={Link} to={"/"} onClick={this.props.onLogout}>
           Wyloguj
         </Button>
+        </div>
         </>
       );
     }

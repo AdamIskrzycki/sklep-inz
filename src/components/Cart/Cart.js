@@ -4,7 +4,6 @@ import { withStyles } from "@material-ui/core/styles";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import DeleteIcon from "@material-ui/icons/Delete";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { Link } from "react-router-dom";
 
 import * as actionCreators from "../../store/actions";
@@ -20,24 +19,18 @@ const styles = () => ({
     cursor: "pointer",
     margin: "3px",
   },
-  cartIcon: {
-    fontSize: "150px",
-    marginLeft: "40%",
-    marginBottom: "40px",
-  },
   totalAmount: {
     textAlign: "center",
     fontWeight: "600",
   },
   cartProduct: {
-    marginLeft: "25px",
-    letterSpacing: "1px",
+    marginLeft: "20px",
     fontWeight: "550",
   },
   list: {
-    marginLeft: "20%",
     maxHeight: "232px",
     overflowY: "auto",
+    
   },
   totalPrice: {
     textAlign: "center",
@@ -46,7 +39,9 @@ const styles = () => ({
     marginBottom: "10px",
   },
   checkoutButton: {
-    marginLeft: "40%",
+    marginLeft: "37%",
+    marginRight: "37%",
+    width: "26%",
     marginTop: "30px",
   },
 });
@@ -60,12 +55,12 @@ class Cart extends Component {
     );
 
     const grouped = groupBy(this.props.products, "id").sort((a, b) => a.name.localeCompare(b.name));
-    return (
+
+    let cart = (
       <>
-        <ShoppingCartIcon className={classes.cartIcon} />
         <List className={classes.list}>
           {grouped.map((product) => (
-            <ListItem alignItems="center">
+            <ListItem alignItems="left">
               <Tooltip title="Więcej">
                 <AddIcon className={classes.icon} onClick={() => this.props.onAddProduct(product)} />
               </Tooltip>
@@ -96,22 +91,39 @@ class Cart extends Component {
           Do zapłaty: {totalPrice + "zł"}
         </Typography>
         <Typography variant="h5" className={classes.totalAmount}>
-          {this.props.products ? "Ilośc produktów w koszyku: " + this.props.products.length : "Twój koszyk jest pusty"}
+          {this.props.products ? "Ilość produktów w koszyku: " + this.props.products.length : "Twój koszyk jest pusty"}
         </Typography>
         <Tooltip arrow title="Zaloguj się by złożyć zamówienie" open={this.props.isAuthenticated ? false : true}>
-          <Button
-            component={Link}
-            to={"/checkout"}
-            variant="contained"
-            color="primary"
-            className={classes.checkoutButton}
-            disabled={this.props.isAuthenticated ? false : true}
-          >
-            Zamów
-          </Button>
+          <div className={classes.buttonContainer}>
+            <Button
+              component={Link}
+              to={"/checkout"}
+              variant="contained"
+              color="primary"
+              className={classes.checkoutButton}
+              disabled={this.props.isAuthenticated ? false : true}
+            >
+              Zamów
+            </Button>
+          </div>
         </Tooltip>
       </>
     );
+
+    if (this.props.products.length === 0) {
+      cart = (
+        <>
+          <Typography variant="h6" align="center">
+            Aby kontynuować zakupy, wróć do sklepu!
+          </Typography>
+          <Button variant="contained" color="primary" className={classes.checkoutButton} onClick={this.props.clicked}>
+            Wróć
+          </Button>
+        </>
+      );
+    }
+
+    return [cart];
   }
 }
 
