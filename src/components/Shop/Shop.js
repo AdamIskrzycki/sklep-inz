@@ -3,8 +3,9 @@ import { withStyles } from "@material-ui/core/styles";
 import { db } from "../../firebase";
 import Product from "./Product";
 import Cart from "../Cart/Cart";
+import SearchIcon from "@mui/icons-material/Search";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import { Dialog, DialogContent, DialogTitle } from "@material-ui/core";
+import { Dialog, DialogContent, DialogTitle, TextField } from "@material-ui/core";
 
 import { connect } from "react-redux";
 
@@ -16,11 +17,11 @@ const styles = (theme) => ({
   cartIcon: {
     position: "fixed",
     fontSize: "90px",
-    top: '60px',
+    top: "60px",
     "@media (max-width: 380px)": {
-      top: '80px',
+      top: "80px",
     },
-    padding: '16px',
+    padding: "16px",
     cursor: "pointer",
   },
   productsContainer: {
@@ -50,16 +51,29 @@ const styles = (theme) => ({
     marginTop: "30px",
     letterSpacing: "2px",
   },
+  searchProducts: {
+    paddingTop: "15px",
+    width: "80%",
+    marginLeft: "auto",
+    marginRight: "auto",
+    textAlign: "center",
+    borderRadius: "50px",
+    "@media (max-width: 800px)": {
+      width: "50%",
+    },
+  },
 });
 
 class Shop extends Component {
   state = {
     products: null,
+    visibleProducts: null,
     isCartOpen: false,
+    searchValue: "",
   };
 
   toggleOpenCart = () => {
-      this.setState({ isCartOpen: !this.state.isCartOpen });
+    this.setState({ isCartOpen: !this.state.isCartOpen });
   };
 
   displayPrice = (price, discountedPrice) => {
@@ -75,6 +89,16 @@ class Shop extends Component {
     } else return <span className={classes.regularPrice}>{price + "zł"}</span>;
   };
 
+  onInputChange = (e) => {
+    this.setState({ searchValue: e.target.value });
+  };
+
+  filterProducts = (products) => {
+    const filteredProducts = products.filter((el) => el.name === this.state.searchValue);
+
+    this.setState({ visibleProducts: filteredProducts });
+  };
+
   componentDidMount() {
     db.collection("products")
       .get()
@@ -85,6 +109,7 @@ class Shop extends Component {
           updatedProducts.push({ ...data, id: doc.id });
         });
         this.setState({ products: updatedProducts });
+        this.setState({ visibleProducts: updatedProducts});
       });
   }
 
@@ -92,16 +117,15 @@ class Shop extends Component {
     const isCartVisible = this.props.cartProducts.length > 0;
     return (
       <React.Fragment>
-        {isCartVisible && (
-          <ShoppingCartIcon
-            className={this.props.classes.cartIcon}
-            onClick={this.toggleOpenCart}
-          />
-        )}
+        {isCartVisible && <ShoppingCartIcon className={this.props.classes.cartIcon} onClick={this.toggleOpenCart} />}
+        <div className={this.props.classes.searchProducts}>
+          <TextField id="search" label="Wyszukaj produkty" fullWidth variant="outlined" onChange={this.onInputChange} />
+          {/* <SearchIcon disabled={this.state.searchValue.length === 0} fontSize="large" onClick={() => this.filterProducts(this.state.products)}/> */}
+        </div>
         <div className={this.props.classes.shopContainer}>
           <div className={this.props.classes.productsContainer}>
-            {this.state.products &&
-              this.state.products.map((product) => (
+            {this.state.visibleProducts &&
+              this.state.visibleProducts.map((product) => (
                 <Product data={product} display={this.displayPrice} key={product.id} onBuy={this.props.onAddProduct} />
               ))}
           </div>
@@ -111,9 +135,11 @@ class Shop extends Component {
               aria-labelledby="customized-dialog-title"
               open={this.state.isCartOpen}
             >
-              <DialogTitle align='center'>{this.props.cartProducts.length > 0 ? "Twój koszyk" : "Twój koszyk jest pusty"}</DialogTitle>
+              <DialogTitle align="center">
+                {this.props.cartProducts.length > 0 ? "Twój koszyk" : "Twój koszyk jest pusty"}
+              </DialogTitle>
               <DialogContent dividers>
-                <Cart products={this.props.cartProducts} clicked={this.toggleOpenCart}/>
+                <Cart products={this.props.cartProducts} clicked={this.toggleOpenCart} />
               </DialogContent>
             </Dialog>
           }
