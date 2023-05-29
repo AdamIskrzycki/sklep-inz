@@ -3,9 +3,9 @@ import { withStyles } from "@material-ui/core/styles";
 import { db } from "../../firebase";
 import Product from "./Product";
 import Cart from "../Cart/Cart";
-import SearchIcon from "@mui/icons-material/Search";
+//import SearchIcon from "@mui/icons-material/Search";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import { Dialog, DialogContent, DialogTitle, TextField } from "@material-ui/core";
+import { Dialog, DialogContent, DialogTitle, TextField, Button } from "@material-ui/core";
 
 import { connect } from "react-redux";
 
@@ -52,6 +52,7 @@ const styles = (theme) => ({
     letterSpacing: "2px",
   },
   searchProducts: {
+    display: "flex",
     paddingTop: "15px",
     width: "80%",
     marginLeft: "auto",
@@ -61,6 +62,10 @@ const styles = (theme) => ({
     "@media (max-width: 800px)": {
       width: "50%",
     },
+  },
+  searchButton: {
+    marginLeft: "10px",
+    padding: 'none'
   },
 });
 
@@ -90,13 +95,22 @@ class Shop extends Component {
   };
 
   onInputChange = (e) => {
-    this.setState({ searchValue: e.target.value });
+    this.setState({ searchValue: e.target.value.toLowerCase().trim() });
+    if(e.target.value.length === 0) {
+      this.setState({visibleProducts: this.state.products});
+    }
   };
 
   filterProducts = (products) => {
-    const filteredProducts = products.filter((el) => el.name === this.state.searchValue);
+    const filteredProducts = products.filter((el) => el.name === this.state.searchValue.toLowerCase().trim());
 
     this.setState({ visibleProducts: filteredProducts });
+  };
+
+  handleKeyPress = (e) => {
+    if (e.key === "Enter" && this.state.searchValue.toLowerCase().trim() !== "") {
+      this.filterProducts(this.state.products);
+    }
   };
 
   componentDidMount() {
@@ -109,7 +123,7 @@ class Shop extends Component {
           updatedProducts.push({ ...data, id: doc.id });
         });
         this.setState({ products: updatedProducts });
-        this.setState({ visibleProducts: updatedProducts});
+        this.setState({ visibleProducts: updatedProducts });
       });
   }
 
@@ -119,8 +133,17 @@ class Shop extends Component {
       <React.Fragment>
         {isCartVisible && <ShoppingCartIcon className={this.props.classes.cartIcon} onClick={this.toggleOpenCart} />}
         <div className={this.props.classes.searchProducts}>
-          <TextField id="search" label="Wyszukaj produkty" fullWidth variant="outlined" onChange={this.onInputChange} />
-          {/* <SearchIcon disabled={this.state.searchValue.length === 0} fontSize="large" onClick={() => this.filterProducts(this.state.products)}/> */}
+          <TextField id="search" label="Wyszukaj produkty" fullWidth variant="outlined" onChange={this.onInputChange} onKeyPress={this.handleKeyPress}/>
+          <Button
+            className={this.props.classes.searchButton}
+            size="small"
+            color="primary"
+            disabled={this.state.searchValue.length === 0}
+            onClick={() => this.filterProducts(this.state.products)}
+            variant="outlined"
+          >
+            SZUKAJ
+          </Button>
         </div>
         <div className={this.props.classes.shopContainer}>
           <div className={this.props.classes.productsContainer}>
