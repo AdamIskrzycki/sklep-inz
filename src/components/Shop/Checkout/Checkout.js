@@ -45,7 +45,7 @@ const steps = ["Adres dostawy", "Płatność", "Podsumowanie zamówienia"];
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return <AddressForm />;
+      return <AddressForm/>;
     case 1:
       return <PaymentForm />;
     case 2:
@@ -56,6 +56,8 @@ function getStepContent(step) {
 }
 
 export default function Checkout() {
+
+
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
 
@@ -67,8 +69,22 @@ export default function Checkout() {
     setActiveStep(activeStep - 1);
   };
 
+  // const getStepContent = (step) => {
+  //   switch (step) {
+  //     case 0:
+  //       return <AddressForm/>;
+  //     case 1:
+  //       return <PaymentForm />;
+  //     case 2:
+  //       return <Review />;
+  //     default:
+  //       throw new Error("Nieprawidłowy krok");
+  //   }
+  // }
+
   return (
     <React.Fragment>
+      <form onSubmit={handleNext}>
       <CssBaseline />
       <main className={classes.layout}>
         <Paper className={classes.paper}>
@@ -89,8 +105,8 @@ export default function Checkout() {
                   Dziękujemy za Twoje zamówienie!
                 </Typography>
                 <Typography variant="subtitle1">
-                  Twoje zamówienie zostało prawidłowo zarejestrowane, a szczegółowe podsumowanie zamówienia oraz dodatkowe informacje zostaną przesłane
-                  na adres e-mail podany przy finalizowaniu zamówienia. <br></br>W razie jakichkolwiek pytań, proszę o kontakt drogą mailową na adres: onlineshop@gmail.com.
+                  Twoje zamówienie zostało prawidłowo zarejestrowane, potwierdzenie realizacji zamówienia zostanie przesłane
+                  na adres e-mail podany przy finalizowaniu zamówienia. <br></br>W razie jakichkolwiek pytań, proszę o kontakt drogą mailową na adres: skleponline@gmail.com.
                 </Typography>
               </React.Fragment>
             ) : (
@@ -102,15 +118,17 @@ export default function Checkout() {
                       Wróć
                     </Button>
                   )}
-                  <Button variant="contained" color="primary" onClick={handleNext} className={classes.button}>
+                  <Button type="submit" variant="contained" color="primary" className={classes.button} >
                     {activeStep === steps.length - 1 ? "Złóż zamówienie" : "Dalej"}
                   </Button>
                 </div>
               </React.Fragment>
             )}
+            
           </React.Fragment>
         </Paper>
       </main>
+      </form>
     </React.Fragment>
   );
 }
