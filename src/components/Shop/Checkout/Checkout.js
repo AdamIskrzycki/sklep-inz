@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { CssBaseline, Paper, Stepper, Step, StepLabel, Button, Typography } from '@material-ui/core';
-import AddressForm from "./AddressForm";
+import { CssBaseline, Paper, Stepper, Step, StepLabel, Button, Typography } from "@material-ui/core";
+import AddressForm from './AddressForm';
 import PaymentForm from "./PaymentForm";
 import Review from "./Review";
 
@@ -43,11 +43,9 @@ const useStyles = makeStyles((theme) => ({
 const steps = ["Adres dostawy", "Płatność", "Podsumowanie zamówienia"];
 
 
-
 export default function Checkout() {
-
-
   const classes = useStyles();
+
   const [activeStep, setActiveStep] = useState(0);
 
   const [addressFormData, setAddressFormData] = useState({
@@ -93,8 +91,9 @@ export default function Checkout() {
     e.preventDefault();
     setActiveStep(activeStep - 1);
   };
+  const [showReview, setShowReview] = React.useState(false);
 
-  function getStepContent(step) {
+  const getStepContent = (step) => {
     switch (step) {
       case 0:
         return <AddressForm addressFormData={addressFormData} handleInputChange={handleAddressInputChange}/>;
@@ -107,18 +106,6 @@ export default function Checkout() {
     }
   }
 
-  // const getStepContent = (step) => {
-  //   switch (step) {
-  //     case 0:
-  //       return <AddressForm/>;
-  //     case 1:
-  //       return <PaymentForm />;
-  //     case 2:
-  //       return <Review />;
-  //     default:
-  //       throw new Error("Nieprawidłowy krok");
-  //   }
-  // }
 
   return (
     <React.Fragment>
