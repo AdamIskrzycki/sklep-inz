@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { CssBaseline, Paper, Stepper, Step, StepLabel, Button, Typography } from '@material-ui/core';
 import AddressForm from "./AddressForm";
@@ -42,32 +42,70 @@ const useStyles = makeStyles((theme) => ({
 
 const steps = ["Adres dostawy", "Płatność", "Podsumowanie zamówienia"];
 
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <AddressForm/>;
-    case 1:
-      return <PaymentForm />;
-    case 2:
-      return <Review />;
-    default:
-      throw new Error("Nieprawidłowy krok");
-  }
-}
+
 
 export default function Checkout() {
 
 
   const classes = useStyles();
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = useState(0);
 
-  const handleNext = () => {
+  const [addressFormData, setAddressFormData] = useState({
+    name: "",
+    lastname: "",
+    email: "",
+    address: "",
+    city: "",
+    state: "",
+    zipcode: "",
+    country: "",
+  });
+
+  const [paymentFormData, setPaymentFormData] = React.useState({
+    name: "",
+    cardNumber: "",
+    expirationDate: "",
+    cvv: "",
+  });
+
+  const handleAddressInputChange = (e) => {
+    const { name, value } = e.target;
+    setAddressFormData((prevData) => ({
+      ...prevData,
+      [name]: value
+    }));
+  }
+
+  const handlePaymentInputChange = (e) => {
+    const { name, value } = e.target;
+    setPaymentFormData((prevData) => ({
+      ...prevData,
+      [name]: value
+    }));
+  }
+
+  const handleNext = (e) => {
+    e.preventDefault();
     setActiveStep(activeStep + 1);
   };
 
-  const handleBack = () => {
+  const handleBack = (e) => {
+    e.preventDefault();
     setActiveStep(activeStep - 1);
   };
+
+  function getStepContent(step) {
+    switch (step) {
+      case 0:
+        return <AddressForm addressFormData={addressFormData} handleInputChange={handleAddressInputChange}/>;
+      case 1:
+        return <PaymentForm paymentFormData={paymentFormData} handleInputChange={handlePaymentInputChange}/>;
+      case 2:
+        return <Review />;
+      default:
+        throw new Error("Nieprawidłowy krok");
+    }
+  }
 
   // const getStepContent = (step) => {
   //   switch (step) {
