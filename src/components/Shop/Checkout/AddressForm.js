@@ -18,7 +18,7 @@ export default function AddressForm(props) {
           <TextField required id="lastName" name="lastname" label="Nazwisko" fullWidth autoComplete="family-name" value={props.addressFormData.lastname} onChange={props.handleInputChange}/>
         </Grid>
         <Grid item xs={12}>
-          <TextField type="email" id="email" name="email" label="Adres e-mail" fullWidth value={props.addressFormData.email} onChange={props.handleInputChange}/>
+          <TextField required type="email" id="email" name="email" label="Adres e-mail" fullWidth value={props.addressFormData.email} onChange={props.handleInputChange}/>
         </Grid>
         <Grid item xs={12}>
           <TextField required id="address1" name="address" label="Adres do dostawy" fullWidth value={props.addressFormData.address} onChange={props.handleInputChange}/>

@@ -5,6 +5,9 @@ import AddressForm from './AddressForm';
 import PaymentForm from "./PaymentForm";
 import Review from "./Review";
 
+import { connect } from 'react-redux'
+import { groupBy } from  '../../../utils';
+
 const useStyles = makeStyles((theme) => ({
   layout: {
     width: "auto",
@@ -43,8 +46,18 @@ const useStyles = makeStyles((theme) => ({
 const steps = ["Adres dostawy", "Płatność", "Podsumowanie zamówienia"];
 
 
-export default function Checkout() {
+const Checkout = (props) => {
   const classes = useStyles();
+  const grouped = groupBy(props.cartProducts, "id").sort((a, b) => a.name.localeCompare(b.name));
+  const totalPrice = props.cartProducts.reduce(
+    (acc, product) => (product.discountedPrice ? acc + product.discountedPrice : acc + product.price),
+    0
+  );
+  const mapped = grouped.map((product) => {
+    return (product.name + " | x " + product.count + " | " + (product.discountedPrice ? product.discountedPrice : product.price) + "zł\n");
+  })
+
+  const productListEmail = mapped.join("");
 
   const [activeStep, setActiveStep] = useState(0);
 
@@ -72,6 +85,7 @@ export default function Checkout() {
       ...prevData,
       [name]: value
     }));
+
   }
 
   const handlePaymentInputChange = (e) => {
@@ -85,13 +99,32 @@ export default function Checkout() {
   const handleNext = (e) => {
     e.preventDefault();
     setActiveStep(activeStep + 1);
+
+    const serviceId = "service_x4uy50m";
+    const templateId = "template_1y1qs4j";
+
+    if(activeStep === 2) {
+      sendMail(serviceId, templateId, {
+        to_name: addressFormData.name,
+        to_email: addressFormData.email,
+        products: productListEmail,
+        totalPrice: "Całkowita cena: " + totalPrice + "zł",
+      })
+    }
   };
+
+  const sendMail = (serviceId, templateId, variables) => {
+    window.emailjs.send(
+      serviceId, templateId, variables
+    ).then(res => {
+      console.log("Your message has been sent successfully")
+    }).catch(err => console.log(err));
+  }
 
   const handleBack = (e) => {
     e.preventDefault();
     setActiveStep(activeStep - 1);
   };
-  const [showReview, setShowReview] = React.useState(false);
 
   const getStepContent = (step) => {
     switch (step) {
@@ -157,3 +190,11 @@ export default function Checkout() {
     </React.Fragment>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    cartProducts: state.cartProducts,
+  };
+};
+
+export default connect(mapStateToProps)(Checkout);

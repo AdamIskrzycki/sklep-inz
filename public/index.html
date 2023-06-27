@@ -23,6 +23,7 @@
     -->
     <title>Sklep internetowy</title>
   </head>
+  
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
@@ -43,6 +44,13 @@
 <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
 <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-analytics.js"></script>
-
+<script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
+</script>
+<script type="text/javascript">
+   (function(){
+      emailjs.init("AEGYeJ26irEAWwp0E");
+   })();
+</script>
   </body>
 </html>

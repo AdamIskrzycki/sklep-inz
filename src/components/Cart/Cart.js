@@ -88,7 +88,7 @@ class Cart extends Component {
           ))}
         </List>
         <Typography variant="h5" className={classes.totalPrice}>
-          Do zapłaty: {totalPrice + "zł"}
+          Do zapłaty: {totalPrice.toFixed(2) + "zł"}
         </Typography>
         <Typography variant="h5" className={classes.totalAmount}>
           {this.props.products ? "Ilość produktów w koszyku: " + this.props.products.length : "Twój koszyk jest pusty"}
