@@ -32,7 +32,7 @@ class Main extends Component {
           </Typography>
           <Typography variant="h5" align="center" color="textSecondary" paragraph>
             
-            Poniższe przyciski pozwolą na skorzystanie ze sklepu internetowego, oraz, w przypadku dostępu do konta admina, na 
+            Poniższe przyciski pozwolą na skorzystanie ze sklepu internetowego oraz w przypadku dostępu do konta admina, na 
             manipulację dostępnymi produktami w panelu admina.
           </Typography>
           <div className={classes.heroButtons}>

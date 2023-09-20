@@ -1,11 +1,10 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import { db } from "../../firebase";
 import Product from "./Product";
 import Cart from "../Cart/Cart";
-//import SearchIcon from "@mui/icons-material/Search";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import { Dialog, DialogContent, DialogTitle, TextField, Button } from "@material-ui/core";
+import { Dialog, DialogContent, DialogTitle, TextField, Button, FormControl, InputLabel, Select, MenuItem } from "@material-ui/core";
 
 import { connect } from "react-redux";
 
@@ -54,35 +53,42 @@ const styles = (theme) => ({
   searchProducts: {
     display: "flex",
     paddingTop: "15px",
-    width: "80%",
+    width: "85%",
     marginLeft: "auto",
     marginRight: "auto",
     textAlign: "center",
     borderRadius: "50px",
     "@media (max-width: 800px)": {
-      width: "50%",
+      width: "80%",
     },
   },
   searchButton: {
     marginLeft: "10px",
-    padding: 'none'
+    marginRight: "70px",
+    padding: "none",
+  },
+  searchContainer: {
+    width: "90%",
+    display: "flex"
+  },
+  sortContainer: {
+    width: "10%",
   },
 });
 
-class Shop extends Component {
-  state = {
-    products: null,
-    visibleProducts: null,
-    isCartOpen: false,
-    searchValue: "",
+const Shop = (props) => {
+  const [products, setProducts] = useState(null);
+  const [visibleProducts, setVisibleProducts] = useState(null);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
+  const [sortValue, setSortValue] = useState("");
+
+  const toggleOpenCart = () => {
+    setIsCartOpen(!isCartOpen);
   };
 
-  toggleOpenCart = () => {
-    this.setState({ isCartOpen: !this.state.isCartOpen });
-  };
-
-  displayPrice = (price, discountedPrice) => {
-    const { classes } = this.props;
+  const displayPrice = (price, discountedPrice) => {
+    const { classes } = props;
 
     if (discountedPrice) {
       return (
@@ -94,26 +100,29 @@ class Shop extends Component {
     } else return <span className={classes.regularPrice}>{price + "zł"}</span>;
   };
 
-  onInputChange = (e) => {
-    this.setState({ searchValue: e.target.value.toLowerCase().trim() });
-    if(e.target.value.length === 0) {
-      this.setState({visibleProducts: this.state.products});
+  const onInputChange = (e) => {
+    setSearchValue(e.target.value.toLowerCase().trim());
+    if (e.target.value.length === 0) {
+      setVisibleProducts(products);
     }
   };
 
-  filterProducts = (products) => {
-    const filteredProducts = products.filter((el) => el.name === this.state.searchValue.toLowerCase().trim());
-
-    this.setState({ visibleProducts: filteredProducts });
+  const filterProducts = () => {
+    const filteredProducts = products.filter((el) => el.name === searchValue);
+    setVisibleProducts(filteredProducts);
   };
 
-  handleKeyPress = (e) => {
-    if (e.key === "Enter" && this.state.searchValue.toLowerCase().trim() !== "") {
-      this.filterProducts(this.state.products);
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter" && searchValue !== "") {
+      filterProducts();
     }
   };
 
-  componentDidMount() {
+  const onSortChange = (e) => {
+    setSortValue(e.target.value);
+  };
+
+  useEffect(() => {
     db.collection("products")
       .get()
       .then((snapshot) => {
@@ -122,54 +131,128 @@ class Shop extends Component {
           const data = doc.data();
           updatedProducts.push({ ...data, id: doc.id });
         });
-        this.setState({ products: updatedProducts });
-        this.setState({ visibleProducts: updatedProducts });
+        setProducts(updatedProducts);
+        setVisibleProducts(updatedProducts);
       });
-  }
+  }, []);
 
-  render() {
-    const isCartVisible = this.props.cartProducts.length > 0;
-    return (
-      <React.Fragment>
-        {isCartVisible && <ShoppingCartIcon className={this.props.classes.cartIcon} onClick={this.toggleOpenCart} />}
-        <div className={this.props.classes.searchProducts}>
-          <TextField id="search" label="Wyszukaj produkty" fullWidth variant="outlined" onChange={this.onInputChange} onKeyPress={this.handleKeyPress}/>
+  useEffect(() => {
+
+    let sortedProducts = [];
+    let copiedProducts = [];
+
+    switch (sortValue) {
+      case "latest":
+        sortedProducts = [...products];
+        setVisibleProducts(sortedProducts)
+        console.log("latest: ", sortedProducts);
+        break;
+      case "newest":
+        copiedProducts = [...products]
+        sortedProducts = copiedProducts.reverse();
+        setVisibleProducts(sortedProducts)
+        console.log("newest: ", sortedProducts);
+        break;
+      case "az":
+        copiedProducts = [...products]
+        sortedProducts = copiedProducts.sort((a, b) => (a.name > b.name) ? 1: -1);
+        setVisibleProducts(sortedProducts)
+        console.log("az: ", sortedProducts);                               
+        break;
+      case "za":
+        copiedProducts = [...products]
+        sortedProducts = copiedProducts.sort((a, b) => (b.name > a.name) ? 1: -1);
+        setVisibleProducts(sortedProducts)
+        console.log("za: ", sortedProducts);                              
+        break;
+      case "priceAsc":
+        copiedProducts = [...products]
+        sortedProducts = copiedProducts.sort((a, b) => {
+          return a.price > b.price ? 1: -1;
+        })
+        setVisibleProducts(sortedProducts)
+        console.log("priceAsc: ", sortedProducts);                               // TODO
+        break;
+      case "priceDesc":
+        copiedProducts = [...products]
+        sortedProducts = copiedProducts.sort((a, b) => {
+          return b.price > a.price ? 1: -1;
+        })
+        setVisibleProducts(sortedProducts)
+        console.log("priceDesc: ", sortedProducts);                               // TODO
+        break;
+      default:
+        sortedProducts = visibleProducts;
+        setVisibleProducts(sortedProducts)
+        console.log("default case");
+        break;
+    }
+  }, [sortValue])
+
+  const isCartVisible = props.cartProducts.length > 0;
+
+  return (
+    <React.Fragment>
+      {isCartVisible && <ShoppingCartIcon className={props.classes.cartIcon} onClick={toggleOpenCart} />}
+      <div className={props.classes.searchProducts}>
+        <div className={props.classes.searchContainer}>
+          <TextField
+            id="search"
+            label="Wyszukaj produkt"
+            fullWidth
+            variant="outlined"
+            onChange={onInputChange}
+            onKeyPress={handleKeyPress}
+          />
           <Button
-            className={this.props.classes.searchButton}
+            className={props.classes.searchButton}
             size="small"
             color="primary"
-            disabled={this.state.searchValue.length === 0}
-            onClick={() => this.filterProducts(this.state.products)}
+            disabled={searchValue.length === 0}
+            onClick={filterProducts}
             variant="outlined"
           >
             SZUKAJ
           </Button>
         </div>
-        <div className={this.props.classes.shopContainer}>
-          <div className={this.props.classes.productsContainer}>
-            {this.state.visibleProducts &&
-              this.state.visibleProducts.map((product) => (
-                <Product data={product} display={this.displayPrice} key={product.id} onBuy={this.props.onAddProduct} />
-              ))}
-          </div>
-          {
-            <Dialog
-              onClose={this.toggleOpenCart}
-              aria-labelledby="customized-dialog-title"
-              open={this.state.isCartOpen}
+        <div className={props.classes.sortContainer}>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Sortuj</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={sortValue}
+              onChange={onSortChange}
+              label="Sortuj"
             >
-              <DialogTitle align="center">
-                {this.props.cartProducts.length > 0 ? "Twój koszyk" : "Twój koszyk jest pusty"}
-              </DialogTitle>
-              <DialogContent dividers>
-                <Cart products={this.props.cartProducts} clicked={this.toggleOpenCart} />
-              </DialogContent>
-            </Dialog>
-          }
+              <MenuItem value={"latest"}>Od najstarszych</MenuItem>
+              <MenuItem value={"newest"}>Od najnowszych</MenuItem>
+              <MenuItem value={"az"}>Po nazwie A-Z</MenuItem>
+              <MenuItem value={"za"}>Po nazwie Z-A</MenuItem>
+              <MenuItem value={"priceAsc"}>Po cenie rosnąco</MenuItem>
+              <MenuItem value={"priceDesc"}>Po cenie malejąco</MenuItem>
+            </Select>
+          </FormControl>
         </div>
-      </React.Fragment>
-    );
-  }
+      </div>
+      <div className={props.classes.shopContainer}>
+        <div className={props.classes.productsContainer}>
+          {visibleProducts &&
+            visibleProducts.map((product) => (
+              <Product data={product} display={displayPrice} key={product.id} onBuy={props.onAddProduct} />
+            ))}
+        </div>
+        <Dialog onClose={toggleOpenCart} aria-labelledby="customized-dialog-title" open={isCartOpen}>
+          <DialogTitle align="center">
+            {props.cartProducts.length > 0 ? "Twój koszyk" : "Twój koszyk jest pusty"}
+          </DialogTitle>
+          <DialogContent dividers>
+            <Cart products={props.cartProducts} clicked={toggleOpenCart} />
+          </DialogContent>
+        </Dialog>
+      </div>
+    </React.Fragment>
+  );
 }
 
 const mapStateToProps = (state) => {
