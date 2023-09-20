@@ -136,6 +136,8 @@ const Shop = (props) => {
       });
   }, []);
 
+
+
   useEffect(() => {
 
     let sortedProducts = [];
@@ -157,29 +159,37 @@ const Shop = (props) => {
         copiedProducts = [...products]
         sortedProducts = copiedProducts.sort((a, b) => (a.name > b.name) ? 1: -1);
         setVisibleProducts(sortedProducts)
-        console.log("az: ", sortedProducts);                               
+        console.log("az: ", sortedProducts);
         break;
       case "za":
         copiedProducts = [...products]
         sortedProducts = copiedProducts.sort((a, b) => (b.name > a.name) ? 1: -1);
         setVisibleProducts(sortedProducts)
-        console.log("za: ", sortedProducts);                              
+        console.log("za: ", sortedProducts);
         break;
       case "priceAsc":
         copiedProducts = [...products]
-        sortedProducts = copiedProducts.sort((a, b) => {
-          return a.price > b.price ? 1: -1;
-        })
+        const productsWithBuyingPriceArrayAsc = copiedProducts.map((obj) => ({
+          ...obj,
+          buyingPrice: obj.discountedPrice !== 0 ? obj.discountedPrice : obj.price,
+        }));
+         sortedProducts = productsWithBuyingPriceArrayAsc.sort((a, b) => {
+           return a.buyingPrice > b.buyingPrice ? 1: -1;
+         })
         setVisibleProducts(sortedProducts)
-        console.log("priceAsc: ", sortedProducts);                               // TODO
+        console.log("priceAsc: ", sortedProducts);
         break;
       case "priceDesc":
         copiedProducts = [...products]
-        sortedProducts = copiedProducts.sort((a, b) => {
-          return b.price > a.price ? 1: -1;
-        })
+        const productsWithBuyingPriceArrayDesc = copiedProducts.map((obj) => ({
+          ...obj,
+          buyingPrice: obj.discountedPrice !== 0 ? obj.discountedPrice : obj.price,
+        }));
+         sortedProducts = productsWithBuyingPriceArrayDesc.sort((a, b) => {
+           return b.buyingPrice > a.buyingPrice ? 1: -1;
+         })
         setVisibleProducts(sortedProducts)
-        console.log("priceDesc: ", sortedProducts);                               // TODO
+        console.log("priceDesc: ", sortedProducts);
         break;
       default:
         sortedProducts = visibleProducts;
