@@ -26,7 +26,7 @@ const Review = (props) => {
   const totalPrice = props.cartProducts.reduce(
     (acc, product) => (product.discountedPrice ? acc + product.discountedPrice : acc + product.price),
     0
-  );
+  ).toFixed(2);
 
   return (
     <React.Fragment>

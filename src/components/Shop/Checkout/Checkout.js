@@ -52,7 +52,7 @@ const Checkout = (props) => {
   const totalPrice = props.cartProducts.reduce(
     (acc, product) => (product.discountedPrice ? acc + product.discountedPrice : acc + product.price),
     0
-  );
+  ).toFixed(2);
   const mapped = grouped.map((product) => {
     return (product.name + " | x " + product.count + " | " + (product.discountedPrice ? product.discountedPrice : product.price) + "zł\n");
   })
@@ -104,6 +104,7 @@ const Checkout = (props) => {
     const templateId = "template_1y1qs4j";
 
     if(activeStep === 2) {
+
       sendMail(serviceId, templateId, {
         to_name: addressFormData.name,
         to_email: addressFormData.email,
