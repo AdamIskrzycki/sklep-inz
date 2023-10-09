@@ -9,7 +9,7 @@ const useStyles = makeStyles(() => ({
   product: {
     display: "flex",
     width: '300px',
-    margin: '0 20px',
+    margin: '20px',
     flexDirection: "column",
     '@media (max-width: 1200px)': {
       margin: '20px',

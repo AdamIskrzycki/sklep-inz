@@ -27,9 +27,9 @@ const styles = (theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    "@media (max-width: 1200px)": {
+    // "@media (max-width: 1200px)": {
       flexWrap: "wrap",
-    },
+    //},
   },
   cardGrid: {
     paddingTop: theme.spacing(8),
