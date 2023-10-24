@@ -31,9 +31,9 @@ class Main extends Component {
             Witaj w sklepie internetowym!
           </Typography>
           <Typography variant="h5" align="center" color="textSecondary" paragraph>
-            
-            Poniższe przyciski pozwolą na skorzystanie ze sklepu internetowego oraz w przypadku dostępu do konta admina, na 
-            manipulację dostępnymi produktami w panelu admina.
+            {/* Aby rozpocząć zakupy kliknij poniższy przycisk! Możesz dodawać produkty do swojego koszyka i gdy będziesz już złożyć zamówienie */}
+            Poniższe przyciski pozwolą na skorzystanie ze sklepu internetowego oraz w przypadku dostępu do konta administratora, na 
+            manipulację dostępnymi produktami w panelu administratora. 
           </Typography>
           <div className={classes.heroButtons}>
             <Grid container spacing={2} justify="center">

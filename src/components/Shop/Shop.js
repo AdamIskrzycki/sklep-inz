@@ -17,8 +17,8 @@ const styles = (theme) => ({
     position: "fixed",
     fontSize: "90px",
     top: "60px",
-    "@media (max-width: 380px)": {
-      top: "80px",
+    "@media (max-width: 740px)": {
+      top: "55px",
     },
     padding: "16px",
     cursor: "pointer",
@@ -59,13 +59,16 @@ const styles = (theme) => ({
     textAlign: "center",
     borderRadius: "50px",
     "@media (max-width: 800px)": {
-      width: "80%",
+      width: "65%",
     },
   },
   searchButton: {
     marginLeft: "10px",
     marginRight: "70px",
     padding: "none",
+    "@media (max-width: 800px)": {
+      marginRight: "20px",
+    }
   },
   searchContainer: {
     width: "90%",
@@ -73,6 +76,9 @@ const styles = (theme) => ({
   },
   sortContainer: {
     width: "10%",
+    "@media (max-width: 800px)": {
+      width: "25%",
+    }
   },
 });
 

@@ -165,7 +165,7 @@ const Checkout = (props) => {
                 </Typography>
                 <Typography variant="subtitle1">
                   Twoje zamówienie zostało prawidłowo zarejestrowane, potwierdzenie realizacji zamówienia zostanie przesłane
-                  na adres e-mail podany przy finalizowaniu zamówienia. <br></br>W razie jakichkolwiek pytań, proszę o kontakt drogą mailową na adres: skleponline@gmail.com.
+                  na adres e-mail podany przy finalizowaniu zamówienia. W razie jakichkolwiek pytań, proszę o kontakt drogą mailową na adres: skleponline@gmail.com.
                 </Typography>
               </React.Fragment>
             ) : (

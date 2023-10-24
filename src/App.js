@@ -17,7 +17,9 @@ class App extends Component {
     this.props.onTryAutoSignup();
   }
 
+  
   render() {
+
     let routes = (
       <Switch>
         <Route exact path="/" component={Main} />
