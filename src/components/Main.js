@@ -31,9 +31,10 @@ class Main extends Component {
             Witaj w sklepie internetowym!
           </Typography>
           <Typography variant="h5" align="center" color="textSecondary" paragraph>
-            {/* Aby rozpocząć zakupy kliknij poniższy przycisk! Możesz dodawać produkty do swojego koszyka i gdy będziesz już złożyć zamówienie */}
-            Poniższe przyciski pozwolą na skorzystanie ze sklepu internetowego oraz w przypadku dostępu do konta administratora, na 
-            manipulację dostępnymi produktami w panelu administratora. 
+            Poniższy przycisk pozwoli Ci na podgląd produktów dostępnych w ofercie sklepu internetowego. 
+            <br></br>Po zalogowaniu, możesz złożyć zamówienie na produkty dodane przez Ciebie do koszyka.
+            {/* Poniższe przyciski pozwolą na skorzystanie ze sklepu internetowego oraz w przypadku dostępu do konta administratora, na 
+            manipulację dostępnymi produktami w panelu administratora.  */}
           </Typography>
           <div className={classes.heroButtons}>
             <Grid container spacing={2} justify="center">
@@ -43,9 +44,9 @@ class Main extends Component {
                 </Button>
               </Grid>
               <Grid item>
-                <Button variant="outlined" color="primary" component={Link} to={"/admin"} disabled={localStorage.getItem("userId") !== "43PfXhmZ3aSah3Q32cB0A99vbiH2"}>
+                {/* <Button variant="outlined" color="primary" component={Link} to={"/admin"} disabled={localStorage.getItem("userId") !== "43PfXhmZ3aSah3Q32cB0A99vbiH2"}>
                   Przejdź do panelu admina
-                </Button>
+                </Button> */}
               </Grid>
             </Grid>
           </div>
