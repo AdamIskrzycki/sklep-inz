@@ -7,7 +7,7 @@ You can also create your own account and sign in with it.
 **This project uses Firebase authentication, Firebase database and Firebase storage**
 
 # Demo
-Open [Online Shop](https://shop-308e8.web.app/) to view full project.
+Open [Online Shop](https://sklep-inz.web.app/) to view full project.
 
 # Libraries
 Used libraries: 
