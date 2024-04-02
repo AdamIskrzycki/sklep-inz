@@ -61,24 +61,24 @@ class Cart extends Component {
         <List className={classes.list}>
           {grouped.map((product) => (
             <ListItem alignItems="left">
-              <Tooltip title="Więcej">
+              <Tooltip title="More">
                 <AddIcon className={classes.icon} onClick={() => this.props.onAddProduct(product)} />
               </Tooltip>
-              <Tooltip title="Mniej">
+              <Tooltip title="Less">
                 <RemoveIcon className={classes.icon} onClick={() => this.props.onRemoveProduct(product.id)} />
               </Tooltip>
               <ListItemText
                 primary={
                   <Typography className={classes.cartProduct}>
                     {product.name +
-                      " | " +
+                      " | $" +
                       (product.discountedPrice ? product.discountedPrice : product.price) +
-                      "zł | x" +
+                      " | x" +
                       product.count}
                   </Typography>
                 }
               />
-              <Tooltip title="Usuń">
+              <Tooltip title="Delete">
                 <DeleteIcon
                   className={classes.icon}
                   onClick={() => this.props.onRemoveAllProducts(product.id)}
@@ -88,12 +88,12 @@ class Cart extends Component {
           ))}
         </List>
         <Typography variant="h5" className={classes.totalPrice}>
-          Do zapłaty: {totalPrice.toFixed(2) + "zł"}
+          Total price: {"$" + totalPrice.toFixed(2)}
         </Typography>
         <Typography variant="h5" className={classes.totalAmount}>
-          {this.props.products ? "Ilość produktów w koszyku: " + this.props.products.length : "Twój koszyk jest pusty"}
+          {this.props.products ? "Products in cart: " + this.props.products.length : "Your cart is empty"}
         </Typography>
-        <Tooltip arrow title="Zaloguj się by złożyć zamówienie" open={this.props.isAuthenticated ? false : true}>
+        <Tooltip arrow title="Sign in to make an order" open={this.props.isAuthenticated ? false : true}>
           <div className={classes.buttonContainer}>
             <Button
               component={Link}
@@ -103,7 +103,7 @@ class Cart extends Component {
               className={classes.checkoutButton}
               disabled={this.props.isAuthenticated ? false : true}
             >
-              Zamów
+              Order
             </Button>
           </div>
         </Tooltip>
@@ -114,10 +114,10 @@ class Cart extends Component {
       cart = (
         <>
           <Typography variant="h6" align="center">
-            Aby kontynuować zakupy, wróć do sklepu!
+            Go back to shop to continue shopping!
           </Typography>
           <Button variant="contained" color="primary" className={classes.checkoutButton} onClick={this.props.clicked}>
-            Wróć
+            Back
           </Button>
         </>
       );

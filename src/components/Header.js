@@ -35,13 +35,13 @@ const Header = (props) => {
       <Toolbar>
         <ShoppingBasketIcon className={classes.icon} />
         <Typography variant="h6" color="inherit" noWrap className={classes.shop}>
-          Sklep internetowy
+          Online shop
         </Typography>
         <Button className={classes.button} variant="text" color="inherit" component={Link} to={"/"}>
-          Strona główna
+          Home
         </Button>
         <Button className={classes.button} variant="text" color="inherit" component={Link} to={"/shop"}>
-          Sklep
+          Shop
         </Button>
         <Button
           className={classes.button}
@@ -51,7 +51,7 @@ const Header = (props) => {
           to={"/admin"}
           style={{ display: props.isAdmin ? "block" : "none" }}
         >
-          Panel Admina
+          Admin panel
         </Button>
         <Auth />
       </Toolbar>

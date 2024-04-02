@@ -59,11 +59,11 @@ const Product = (props) => {
         <Typography>
           {props.data.discountedPrice ? (
             <>
-              <span className={classes.regularPriceCrossed}>{props.data.price + "zł"}</span>
-              <span className={classes.discountedPrice}>{props.data.discountedPrice + "zł"}</span>
+              <span className={classes.regularPriceCrossed}>{"$" + props.data.price}</span>
+              <span className={classes.discountedPrice}>{"$" + props.data.discountedPrice}</span>
             </>
           ) : (
-            <span className={classes.regularPrice}>{props.data.price + "zł"}</span>
+            <span className={classes.regularPrice}>{"$" + props.data.price}</span>
           )}
         </Typography>
       </CardContent>
@@ -76,7 +76,7 @@ const Product = (props) => {
           align="center"
           onClick={() => props.onAddProduct(props.data)}
         >
-          Kup
+          Buy
         </Button>
       </CardActions>
     </Card>

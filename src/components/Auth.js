@@ -27,10 +27,10 @@ class Auth extends Component {
     let nav = (
       <div className={classes.auth}>
         <Button className={classes.button} variant="text" color="inherit" component={Link} to={"/signin"}>
-          Zaloguj się
+          Sign in
         </Button>
         <Button className={classes.button} variant="text" color="inherit" component={Link} to={"/signup"}>
-          Zarejestruj się
+          Sign up
         </Button>
       </div>
     );
@@ -41,7 +41,7 @@ class Auth extends Component {
         <>
         <div className={classes.auth}>
         <Button className={classes.button} variant="text" color="inherit" component={Link} to={"/"} onClick={this.props.onLogout}>
-          Wyloguj
+          Sign out
         </Button>
         </div>
         </>

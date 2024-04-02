@@ -28,25 +28,18 @@ class Main extends Component {
       <div className={classes.heroContent}>
         <Container maxWidth="sm">
           <Typography className={classes.welcome}component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-            Witaj w sklepie internetowym!
+            Welcome to <br></br>online shop!
           </Typography>
           <Typography variant="h5" align="center" color="textSecondary" paragraph>
-            Poniższy przycisk pozwoli Ci na podgląd produktów dostępnych w ofercie sklepu internetowego. 
-            <br></br>Po zalogowaniu, możesz złożyć zamówienie na produkty dodane przez Ciebie do koszyka.
-            {/* Poniższe przyciski pozwolą na skorzystanie ze sklepu internetowego oraz w przypadku dostępu do konta administratora, na 
-            manipulację dostępnymi produktami w panelu administratora.  */}
+            Below button lets you see, what products are currently available in the shop's stock.
+            After signing in, you can order the products added to your shopping cart!
           </Typography>
           <div className={classes.heroButtons}>
             <Grid container spacing={2} justify="center">
               <Grid item>
                 <Button variant="contained" color="primary" component={Link} to={"/shop"}>
-                  Przejdź do sklepu
+                  Go shopping
                 </Button>
-              </Grid>
-              <Grid item>
-                {/* <Button variant="outlined" color="primary" component={Link} to={"/admin"} disabled={localStorage.getItem("userId") !== "43PfXhmZ3aSah3Q32cB0A99vbiH2"}>
-                  Przejdź do panelu admina
-                </Button> */}
               </Grid>
             </Grid>
           </div>

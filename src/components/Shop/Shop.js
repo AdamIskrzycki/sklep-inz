@@ -99,11 +99,11 @@ const Shop = (props) => {
     if (discountedPrice) {
       return (
         <>
-          <span className={classes.regularPriceCrossed}>{price + "zł"}</span>
-          <span className={classes.discountedPrice}>{discountedPrice + "zł"}</span>
+          <span className={classes.regularPriceCrossed}>{"$" + price}</span>
+          <span className={classes.discountedPrice}>{"$" + discountedPrice}</span>
         </>
       );
-    } else return <span className={classes.regularPrice}>{price + "zł"}</span>;
+    } else return <span className={classes.regularPrice}>{"$" + price}</span>;
   };
 
   const onInputChange = (e) => {
@@ -214,7 +214,7 @@ const Shop = (props) => {
         <div className={props.classes.searchContainer}>
           <TextField
             id="search"
-            label="Wyszukaj produkt"
+            label="Search"
             fullWidth
             variant="outlined"
             onChange={onInputChange}
@@ -228,25 +228,25 @@ const Shop = (props) => {
             onClick={filterProducts}
             variant="outlined"
           >
-            SZUKAJ
+            SEARCH
           </Button>
         </div>
         <div className={props.classes.sortContainer}>
           <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Sortuj</InputLabel>
+            <InputLabel id="demo-simple-select-label">Sort</InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               value={sortValue}
               onChange={onSortChange}
-              label="Sortuj"
+              label="Sort"
             >
-              <MenuItem value={"latest"}>Od najstarszych</MenuItem>
-              <MenuItem value={"newest"}>Od najnowszych</MenuItem>
-              <MenuItem value={"az"}>Po nazwie A-Z</MenuItem>
-              <MenuItem value={"za"}>Po nazwie Z-A</MenuItem>
-              <MenuItem value={"priceAsc"}>Po cenie rosnąco</MenuItem>
-              <MenuItem value={"priceDesc"}>Po cenie malejąco</MenuItem>
+              <MenuItem value={"latest"}>Latest</MenuItem>
+              <MenuItem value={"newest"}>Newest</MenuItem>
+              <MenuItem value={"az"}>Name A-Z</MenuItem>
+              <MenuItem value={"za"}>Name Z-A</MenuItem>
+              <MenuItem value={"priceAsc"}>Price ascending</MenuItem>
+              <MenuItem value={"priceDesc"}>Price descending</MenuItem>
             </Select>
           </FormControl>
         </div>
@@ -260,7 +260,7 @@ const Shop = (props) => {
         </div>
         <Dialog onClose={toggleOpenCart} aria-labelledby="customized-dialog-title" open={isCartOpen}>
           <DialogTitle align="center">
-            {props.cartProducts.length > 0 ? "Twój koszyk" : "Twój koszyk jest pusty"}
+            {props.cartProducts.length > 0 ? "Your cart" : "Your cart is empty"}
           </DialogTitle>
           <DialogContent dividers>
             <Cart products={props.cartProducts} clicked={toggleOpenCart} />

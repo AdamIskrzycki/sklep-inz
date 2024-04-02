@@ -3,6 +3,11 @@ import { TextField, Button, Container, withStyles, Typography, Box } from "@mate
 import { storage } from "../../firebase";
 import CloseIcon from '@material-ui/icons/Close';
 
+
+// FIX
+// when product is edited, their image automatically sets to a placeholder image - make it stay when you don't upload a new one and just edit price/name
+// problem probably lays in the handleImageAsFile function (try some conditionals) 
+
 const styles = (theme) => ({
   addButton: {
     fontWeight: "500",
@@ -22,6 +27,9 @@ const styles = (theme) => ({
     width: "30%",
     margin: "3px",
     marginTop: theme.spacing(6),
+    "@media (max-width: 800px)": {
+      width: "100%",
+    }
   },
   image: {
     maxWidth: "300px",
@@ -105,7 +113,7 @@ class AdminPanelControls extends Component {
           .child(file.name)
           .getDownloadURL()
           .then((fireBaseUrl) => {
-            this.setState({ imageUrl: fireBaseUrl });
+              this.setState({ imageUrl: fireBaseUrl });
           });
       }
     );
@@ -137,14 +145,14 @@ class AdminPanelControls extends Component {
       <React.Fragment>
         <Container className={classes.container}>
           <Typography variant="h5" align="center" color="textSecondary" paragraphvariant="h5" paragraph>
-            Określ poniższe własności produktu, aby dodać go do sklepu
+            Specify product details below in order to add it to shop's assortment.
           </Typography>
           <TextField
             value={this.state.name}
             onChange={this.onInputChange}
             name="name"
             id="focus"
-            label="Nazwa"
+            label="Name"
             variant="outlined"
             className={classes.textField}
             autoFocus
@@ -155,7 +163,7 @@ class AdminPanelControls extends Component {
             onChange={this.onInputChange}
             name="price"
             type="number"
-            label="Cena"
+            label="Price"
             variant="outlined"
             className={classes.textField}
           />
@@ -165,14 +173,14 @@ class AdminPanelControls extends Component {
             onChange={this.onInputChange}
             name="discountedPrice"
             type="number"
-            label="Cena po obniżce"
+            label="Discounted price"
             variant="outlined"
             className={classes.textField}
           />
           <Box className={classes.box}>
             <Typography variant="h6" color="textSecondary" className={classes.fileInput}>
               <label for="imageUpload" className={classes.inputLabel}>
-                Załącz zdjęcie produktu
+                Add product image
               </label>
               <input id="imageUpload" type="file" onChange={this.handleImageAsFile} accept=".jpg, .jpeg, .png"></input>
             </Typography>
@@ -183,7 +191,7 @@ class AdminPanelControls extends Component {
               className={classes.addButton}
               onClick={this.onButtonClick}
             >
-              {this.state.isInEditMode ? "Zapisz" : "Dodaj"}
+              {this.state.isInEditMode ? "Save" : "Add"}
             </Button>
             <img src={this.state.imageUrl} className={classes.image} alt=""></img>
             <CloseIcon onClick={this.setPlaceholderImage} className={classes.close} visibility={this.state.imageUrl === '' ? 'hidden' : 'visible'}/>

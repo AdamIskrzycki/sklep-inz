@@ -11,9 +11,9 @@ const useStyles = makeStyles((theme) => ({
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {"Wszelkie prawa zastrzeżone © "}
+      {"All rights reserved © "}
       <span color="inherit">
-        Sklep internetowy
+        Online shop
       </span>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -32,7 +32,7 @@ const Footer = () => {
         color="textSecondary"
         component="p"
       >
-        W razie pytań, proszę o kontakt na adres onlineshop@gmail.com
+        In case of any question, please reach out to us via e-mail: onlineshop@gmail.com
       </Typography>
       <Copyright />
     </footer>

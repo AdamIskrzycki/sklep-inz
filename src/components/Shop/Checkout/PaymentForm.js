@@ -7,14 +7,14 @@ export default function PaymentForm(props) {
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
-        Płatność
+        Payment
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
           <TextField
             required
             id="cardName"
-            label="Imię"
+            label="Name"
             fullWidth
             autoComplete="cc-name"
             name="name"
@@ -26,7 +26,7 @@ export default function PaymentForm(props) {
           <TextField
             required
             id="cardNumber"
-            label="Numer karty"
+            label="Card number"
             name="cardNumber"
             fullWidth
             autoComplete="cc-number"
@@ -43,7 +43,7 @@ export default function PaymentForm(props) {
           <TextField
             required
             id="expDate"
-            label="Data wygaśnięcia karty"
+            label="Expiration date"
             fullWidth
             autoComplete="cc-exp"
             name="expirationDate"
@@ -57,7 +57,7 @@ export default function PaymentForm(props) {
             id="cvv"
             label="CVV"
             name="cvv"
-            helperText="3 cyfry na odwrocie karty"
+            helperText="*3 digits on the back of your card"
             fullWidth
             autoComplete="cc-csc"
             type="number"
