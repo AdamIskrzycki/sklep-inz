@@ -76,23 +76,8 @@ class AdminPanelControls extends Component {
     this.setState({imageUrl: '/images/nophoto.jpg'})
   }
 
-  onButtonClick = () => {
-    if (this.state.isInEditMode) {
-      this.props.update(
-        this.state.productId,
-        this.state.name,
-        this.state.price,
-        this.state.discountedPrice,
-        this.state.imageUrl
-      );
-    } else {
-      this.props.add(this.state.name, this.state.price, this.state.discountedPrice, this.state.imageUrl);
-    }
-    this.setState({ name: "", price: "", discountedPrice: "", isInEditMode: false, imageUrl: "" });
-    document.getElementById("focus").focus();
-  };
-
   handleImageAsFile = (e) => {
+
     const file = e.target.files[0];
 
     if (file === undefined) return;
@@ -113,11 +98,29 @@ class AdminPanelControls extends Component {
           .child(file.name)
           .getDownloadURL()
           .then((fireBaseUrl) => {
+              console.log("imageUrl", this.state.imageUrl)
               this.setState({ imageUrl: fireBaseUrl });
           });
       }
     );
   };
+
+  onButtonClick = () => {
+    if (this.state.isInEditMode) {
+      this.props.update(
+        this.state.productId,
+        this.state.name,
+        this.state.price,
+        this.state.discountedPrice,
+        this.state.imageUrl
+      );
+    } else {
+      this.props.add(this.state.name, this.state.price, this.state.discountedPrice, this.state.imageUrl);
+    }
+    this.setState({ name: "", price: "", discountedPrice: "", isInEditMode: false, imageUrl: "" });
+    document.getElementById("focus").focus();
+  };
+
 
   static getDerivedStateFromProps(props, state) {
     if ((props.product && !state.isInEditMode) || (props.product && state.productId !== props.product.id)) {

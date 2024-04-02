@@ -8,6 +8,7 @@ class AdminPanel extends Component {
   state = {
     products: null,
     product: undefined,
+    productImageToKeep: ""
   };
 
   addNewProduct = (name, price, discountedPrice, image) => {
@@ -41,17 +42,26 @@ class AdminPanel extends Component {
 
   editProduct = (product) => {
     this.setState({ product });
+    this.setState({productImageToKeep: product.image})
   };
 
   updateProduct = (id, name, price, discountedPrice, image) => {
+    const updatedProduct = {
+      name: name,
+      price: +price,
+      discountedPrice: discountedPrice === "" ? null : +discountedPrice,
+    };
+  
+    // Check if a new image is being uploaded or if the image is being kept the same
+    if (image !== "" && image !== this.state.productImageToKeep) {
+      updatedProduct.image = image;
+    } else {
+      updatedProduct.image = this.state.productImageToKeep;
+    }
+  
     db.collection("products")
       .doc(id)
-      .set({
-        name: name,
-        price: +price,
-        discountedPrice: discountedPrice === "" ? null : +discountedPrice,
-        image: image,
-      })
+      .set(updatedProduct)
       .then(this.getProducts);
     this.setState({ product: undefined });
   };
@@ -68,7 +78,7 @@ class AdminPanel extends Component {
           <ProductsInfo products={this.state.products} delete={this.deleteProduct} edit={this.editProduct} />
           </div>
           <div className={classes.controls}>
-          <AdminPanelControls add={this.addNewProduct} update={this.updateProduct} product={this.state.product} />
+          <AdminPanelControls add={this.addNewProduct} update={this.updateProduct} product={this.state.product} productImageToKeep={this.productImageToKeep}/>
           </div>
         </div>
       </React.Fragment>
